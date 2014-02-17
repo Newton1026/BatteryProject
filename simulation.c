@@ -5,7 +5,7 @@
 #include "nodes.h"
 
 #define NODES 2
-#define BATTERYLEVEL 3500 // Used for tests. Default Value: 0.0;
+#define BATTERYLEVEL 3200 // Used for tests. Default Value: 0.0;
 #define ITEMS(x) (sizeof(x)-sizeof(x[0]))/sizeof(x[0])
 
 int main(){
@@ -20,8 +20,12 @@ int main(){
 	node node[NODES];
 	float taskSet[] = {0.40,	0.005,	'\0'};	// in mA.
 	int taskTimes[] = {10,		120,	'\0'};	// in ms.
-	int i, diedBatteries;
-	float timeInit;								// in ms.
+
+	float recoveryTaskSet[] = {0.005,	'\0'};	// in mA.
+	int recoveryTaskTimes[] = {130,		'\0'};	// in ms.	
+	
+	int i, j, diedBatteries;
+	float timeInit, timeInit2;					// in ms.
 	float maxPeriod;							// in seconds.
 	
 	printf("\n\n");
@@ -37,19 +41,31 @@ int main(){
 	// 		kibam(&(node[i].battery), node[i].tasks, &timeInit, maxPeriod, node[i].taskPeriods, ITEMS(taskSet), &(node[i].batteryUpTime));
 	// 		printf("Node: %d .:. Battery: %f .:. UpTime: %.1f.\n\n", i, node[i].battery, node[i].batteryUpTime);
 	// 	}
-	// 	showNode(&node[i]);
 	// 	printf("########################################\n");
 	// }
+	// for(i=0;i < NODES;i++)	showNode(&node[i]);
 
-	/*##########################################################################################################*/
+	/*################################################################################################################################*/
 
 	// 	Switching nodes.
 	for(i=0;i < NODES;i++)	newNode(&node[i], taskSet, taskTimes);
 	while(diedBatteries < NODES){
 		for(i=0;i < NODES;i++){
 			if(node[i].battery > BATTERYLEVEL){
-				kibam(&(node[i].battery), node[i].tasks, &timeInit, maxPeriod, node[i].taskPeriods, ITEMS(taskSet),&(node[i].batteryUpTime));
+				timeInit2 = timeInit;
 				printf("Node: %d .:. Battery: %f .:. UpTime: %.1f .:. timeInit: %.1f\n\n", i, node[i].battery, node[i].batteryUpTime, timeInit);
+				kibam(&(node[i].battery), node[i].tasks, &timeInit, maxPeriod, node[i].taskPeriods, ITEMS(taskSet),&(node[i].batteryUpTime));
+				
+				// Loop responsible for the Recovery Effect. The node execute a low charge for a predefined time.
+				for(j=0;j < NODES;j++){
+					if(j != i){
+						if(node[j].battery > BATTERYLEVEL){
+							printf(">Node: %d .:. Battery: %f .:. UpTime: %.1f .:. timeInit: %.1f\n\n", j, node[j].battery, node[j].batteryUpTime, timeInit2);
+							kibam(&(node[j].battery), recoveryTaskSet, &timeInit2, maxPeriod, recoveryTaskTimes, ITEMS(recoveryTaskSet),&(node[j].batteryUpTime));
+						}
+					}
+				}
+			
 			}else{
 				diedBatteries++;
 			}
