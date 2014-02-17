@@ -68,7 +68,7 @@ int kibam(float *batCapacity, float *currents, float *timeInit, float maxPeriod,
 					return -1;
 				}
 			}
-	        *timeInit = *timeInit + timePeriods[loop];
+	        *timeInit = *timeInit + (t*1000);	// Changed: *timeInit = *timeInit + timePeriods[loop];
 	        y0 = i + j;
 			*batCapacity = y0;
 	    }

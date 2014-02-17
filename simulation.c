@@ -49,12 +49,12 @@ int main(){
 		for(i=0;i < NODES;i++){
 			if(node[i].battery > BATTERYLEVEL){
 				kibam(&(node[i].battery), node[i].tasks, &timeInit, maxPeriod, node[i].taskPeriods, ITEMS(taskSet),&(node[i].batteryUpTime));
-				printf("Node: %d .:. Battery: %f .:. UpTime: %.1f.\n\n", i, node[i].battery, node[i].batteryUpTime);
+				printf("Node: %d .:. Battery: %f .:. UpTime: %.1f .:. timeInit: %.1f\n\n", i, node[i].battery, node[i].batteryUpTime, timeInit);
 			}else{
-				printf("All batteries are dead.\n\n");
 				diedBatteries++;
 			}
 		}
+		if(diedBatteries == NODES)	printf("All batteries are dead.\n\n");
 	}
 	for(i=0;i < NODES;i++)	showNode(&node[i]);
 
