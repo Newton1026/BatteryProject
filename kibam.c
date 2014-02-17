@@ -28,6 +28,7 @@ int kibam(float *batCapacity, float *currents, float *timeInit, float maxPeriod,
 
     // Defining auxiliary variables.
     int loop;
+	float period;
     FILE *results; // The simulation results will be printed in a file.
 	
 	results = fopen("results.txt","a"); // The file is created in the same folder of the source code file.
@@ -36,8 +37,10 @@ int kibam(float *batCapacity, float *currents, float *timeInit, float maxPeriod,
       return -1;
     }
 	
-    
-	while(t < maxPeriod){
+	t = (*timeInit) / ts;
+	period = (maxPeriod) + (*timeInit / ts);
+	
+	while(t < period){
 		// Loop for execute the main calculations.
 	    for (loop=0;loop < numberOfCharges;loop++){
 			// 'I' receives each charge in 'currents' vector.
@@ -45,10 +48,10 @@ int kibam(float *batCapacity, float *currents, float *timeInit, float maxPeriod,
 
 	        for(t = (*timeInit) / ts; t < ((*timeInit + timePeriods[loop]) / ts); t = t + 0.01){ // t = t + 0.01;
 				// If 't' passes the period especified by 'maxPeriod'.
-				if(t>=maxPeriod){
+				if(t >= period){
 					y0 = i + j;
 					*batCapacity = y0;
-					*timeInit = t;
+					*timeInit = t * 1000;
 					*batteryUpTime = *batteryUpTime + t;
 					fclose(results);
 					return -1;
@@ -62,18 +65,18 @@ int kibam(float *batCapacity, float *currents, float *timeInit, float maxPeriod,
 				if(i < (0.03 * i0)){
 					y0 = i + j;
 					*batCapacity = -1.0;
-					*timeInit = t;
+					*timeInit = t * 1000;
 					*batteryUpTime = *batteryUpTime + t;
 					fclose(results);
 					return -1;
 				}
 			}
-	        *timeInit = *timeInit + (t*1000);	// Changed: *timeInit = *timeInit + timePeriods[loop];
+	        *timeInit = *timeInit + timePeriods[loop];	// Changed: *timeInit = *timeInit + (t * 1000);
 	        y0 = i + j;
 			*batCapacity = y0;
 	    }
 	}
-	
+
 	fclose(results);    // Close the file.
     return 0;
 }
