@@ -3,6 +3,14 @@
 
     Author: Leonardo Martins Rodrigues.
     Date of creation: 11-02-2014 - Version: 1.0
+
+	Execution instructions (terminal/console):
+	$ gcc nodes.c kibam.c simulation.c -o out
+	$ ./out
+
+	From GNU/Octave (Same folder of the source files):
+	$ plot(load('results.txt'));
+
 */
 
 #include <time.h>
