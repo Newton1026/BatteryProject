@@ -4,7 +4,7 @@
 #include "kibam.h"
 #include "nodes.h"
 
-#define CONTROL 1
+#define CONTROL 2 // Use: 1 - Node after node; or 2 - Node interchanging;
 #define NODES 2
 #define BATTERYLEVEL 2500 // Used for tests. Default Value: 0.0;
 #define ITEMS(x) (sizeof(x)-sizeof(x[0]))/sizeof(x[0])
@@ -43,7 +43,7 @@ int main(){
 				kibam(&(node[i].battery), node[i].tasks, &timeInit, maxPeriod, node[i].taskPeriods, ITEMS(taskSet), &(node[i].batteryUpTime));
 				printf("Node: %d .:. Battery: %.2f .:. UpTime: %.1f .:. timeInit: %.1f\n\n", i, node[i].battery, node[i].batteryUpTime, timeInit);
 			}
-			printf("######################################################################\n\n");
+			printf("############################# Node after Node ##################################\n\n");
 			timeInit = 0.0;
 		}
 		for(i=0;i < NODES;i++)	showNode(&node[i]);
@@ -75,6 +75,8 @@ int main(){
 			}
 			if(diedBatteries == NODES)	printf("All batteries are dead.\n\n");
 		}
+		
+		printf("############################ Node interchanging ################################\n\n");
 		for(i=0;i < NODES;i++)	showNode(&node[i]);
 	}
 	
