@@ -4,7 +4,7 @@
 #include "kibam.h"
 #include "nodes.h"
 
-#define CONTROL 2 // Use: 1 - Node after node; or 2 - Node interchanging;
+#define CONTROL 1 // Use: 1 - Node after node; or 2 - Node interchanging;
 #define NODES 2
 #define BATTERYLEVEL 2500 // Used for tests. Default Value: 0.0;
 #define ITEMS(x) (sizeof(x)-sizeof(x[0]))/sizeof(x[0])
