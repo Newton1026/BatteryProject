@@ -1,5 +1,5 @@
 /*
-    This library define the functions for simulated nodes.
+    This library defines the functions for simulated nodes.
 
     Author: Leonardo Martins Rodrigues.
     Date of creation: 11-02-2014 - Version: 1.0

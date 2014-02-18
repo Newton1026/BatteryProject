@@ -1,12 +1,19 @@
+/*
+    This source code defines the main informations for simulated nodes.
+
+    Author: Leonardo Martins Rodrigues.
+    Date of creation: 11-02-2014 - Version: 1.0
+*/
+
 #include <time.h>
 #include <stdio.h>
 
 #include "kibam.h"
 #include "nodes.h"
 
-#define CONTROL 1			// Use: 1 - Node after node; or 2 - Node interchanging.
 #define NODES 2				// Defining how many nodes in simulation.
-#define BATTERYLEVEL 2500	// Used for tests. Default Value: 0.0
+#define CONTROL 1			// Use: 1 - Node after node; or 2 - Node interchanging.
+#define BATTERYLEVEL 2000	// Used for tests. Default Value: 0.0
 #define ITEMS(x) (sizeof(x)-sizeof(x[0]))/sizeof(x[0])
 
 int main(){
@@ -19,7 +26,7 @@ int main(){
 	}
 
 	node node[NODES];
-	float taskSet[] = {0.40,	0.005,	'\0'};	// in mA.
+	float taskSet[] = {0.04,	0.005,	'\0'};	// in mA.
 	int taskTimes[] = {10,		120,	'\0'};	// in ms.
 
 	float recoveryTaskSet[] = {0.005,	'\0'};	// in mA.
