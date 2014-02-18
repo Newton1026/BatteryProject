@@ -11,7 +11,7 @@
 typedef struct nodes_t{
 	int id;				// Identifies the node.
 	float *tasks;		// Defining a set of tasks (in Ampere).
-	int *taskPeriods;	// Defining a set of task Periods (in minutes).
+	int *taskPeriods;	// Defining a set of task Periods (in ms).
 	float battery;		// Defining the node battery.
 	float batteryUpTime;// Defining a time control for battery up time (in sec).
 }node;
