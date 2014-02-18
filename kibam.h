@@ -1,5 +1,5 @@
 /*
-    This library define the functions for Kinetic Battery Model (KiBaM), as
+    This library defines the functions for Kinetic Battery Model (KiBaM), as
     described in [Battery Modeling - M. R. Jongerden and B. R. Haverkort].
 
     Author: Leonardo Martins Rodrigues.
