@@ -4,9 +4,9 @@
 #include "kibam.h"
 #include "nodes.h"
 
-#define CONTROL 1 // Use: 1 - Node after node; or 2 - Node interchanging;
-#define NODES 2
-#define BATTERYLEVEL 2500 // Used for tests. Default Value: 0.0;
+#define CONTROL 1			// Use: 1 - Node after node; or 2 - Node interchanging.
+#define NODES 2				// Defining how many nodes in simulation.
+#define BATTERYLEVEL 2500	// Used for tests. Default Value: 0.0
 #define ITEMS(x) (sizeof(x)-sizeof(x[0]))/sizeof(x[0])
 
 int main(){
@@ -59,7 +59,7 @@ int main(){
 					printf("Node: %d .:. Battery: %f .:. UpTime: %.1f .:. timeInit: %.1f\n\n", i, node[i].battery, node[i].batteryUpTime, timeInit);
 					kibam(&(node[i].battery), node[i].tasks, &timeInit, maxPeriod, node[i].taskPeriods, ITEMS(taskSet),&(node[i].batteryUpTime));
 				
-					// Loop responsible for the Recovery Effect. The node execute a low charge for a predefined time.
+					// Loop responsible for the Recovery Effect. The node executes a low charge for a predefined time.
 					for(j=0;j < NODES;j++){
 						if(j != i){
 							if(node[j].battery > BATTERYLEVEL){

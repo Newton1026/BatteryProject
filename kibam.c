@@ -47,6 +47,7 @@ int kibam(float *batCapacity, float *currents, float *timeInit, float maxPeriod,
 	        I = currents[loop];
 
 	        for(t = (*timeInit) / ts; t < ((*timeInit + timePeriods[loop]) / ts); t = t + 0.01){ // t = t + 0.01;
+				
 				// If 't' passes the period especified by 'maxPeriod'.
 				if(t >= period){
 					y0 = i + j;

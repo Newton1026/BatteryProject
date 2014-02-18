@@ -25,9 +25,7 @@ int newNode(node *new, float *taskArray, int *timeArray){
 	*/
 	
 	(*new).batteryUpTime = 0.0;
-	
 	(*new).tasks = taskArray;
-	
 	(*new).taskPeriods = timeArray;
 	
 	showNode(new);
