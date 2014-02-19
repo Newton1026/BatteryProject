@@ -21,7 +21,7 @@
 
 #define NODES 2				// Defining how many nodes in simulation.
 #define CONTROL 1			// Use: 1 - Node after node; or 2 - Node interchanging.
-#define BATTERYLEVEL 2000	// Used for tests. Default Value: 0.0
+#define BATTERYLEVEL 1500	// Used for tests. Default Value: 0.0
 #define ITEMS(x) (sizeof(x)-sizeof(x[0]))/sizeof(x[0])
 
 int main(){
@@ -95,6 +95,7 @@ int main(){
 		for(i=0;i < NODES;i++)	showNode(&node[i]);
 	}
 	
-	printf("\n");
+	printf("Used settings: control=%d | batteryLevel(min)=%d | maxPeriod=%.1f\n\n", CONTROL, BATTERYLEVEL, maxPeriod);
+	
 	return 0;
 }

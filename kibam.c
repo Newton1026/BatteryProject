@@ -77,7 +77,7 @@ int kibam(float *batCapacity, float *currents, float *timeInit, float maxPeriod,
 			*batCapacity = y0;
 	    }
 	}
-
+	*batteryUpTime = *batteryUpTime + t;
 	fclose(results);    // Close the file.
     return 0;
 }
