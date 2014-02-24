@@ -35,13 +35,13 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.2655136"
-     inkscape:cx="268.42528"
-     inkscape:cy="252.79196"
+     inkscape:cx="449.44454"
+     inkscape:cy="135.70294"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
-     inkscape:window-width="1920"
-     inkscape:window-height="963"
+     inkscape:window-width="1280"
+     inkscape:window-height="686"
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1">
@@ -671,47 +671,35 @@
        sodipodi:cy="514.16882"
        sodipodi:rx="6.7166405"
        sodipodi:ry="6.3215437"
-       d="m 223.62461,514.16882 a 6.7166405,6.3215437 0 1 1 -13.43328,0 6.7166405,6.3215437 0 1 1 13.43328,0 z"
+       d="m 223.62461,514.16882 c 0,3.4913 -3.00714,6.32155 -6.71664,6.32155 -3.70949,0 -6.71664,-2.83025 -6.71664,-6.32155 0,-3.49129 3.00715,-6.32154 6.71664,-6.32154 3.7095,0 6.71664,2.83025 6.71664,6.32154 z"
        transform="translate(-2,490.36218)"
        clip-path="none" />
     <image
        y="997.66034"
        x="335.15356"
        id="image4280"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAABHNCSVQICAgIfAhkiAAAAFBJREFU
-KJHV0SEKgEAUBNC3Ytm+weIdPZVnshitgk1QWOtWfxCcNjAvTaq1Vu8zdQEE/gNLFI5RmKNwj8I1
-Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC
-"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAABHNCSVQICAgIfAhkiAAAAFBJREFU KJHV0SEKgEAUBNC3Ytm+weIdPZVnshitgk1QWOtWfxCcNjAvTaq1Vu8zdQEE/gNLFI5RmKNwj8I1 Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC "
        height="13"
        width="14" />
     <image
        y="998.45056"
        x="466.32559"
        id="image4291"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAABHNCSVQICAgIfAhkiAAAAFBJREFU
-KJHV0SEKgEAUBNC3Ytm+weIdPZVnshitgk1QWOtWfxCcNjAvTaq1Vu8zdQEE/gNLFI5RmKNwj8I1
-Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC
-"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAABHNCSVQICAgIfAhkiAAAAFBJREFU KJHV0SEKgEAUBNC3Ytm+weIdPZVnshitgk1QWOtWfxCcNjAvTaq1Vu8zdQEE/gNLFI5RmKNwj8I1 Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC "
        height="13"
        width="14" />
     <image
        y="999.24078"
        x="593.54669"
        id="image4302"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAABHNCSVQICAgIfAhkiAAAAFBJREFU
-KJHV0SEKgEAUBNC3Ytm+weIdPZVnshitgk1QWOtWfxCcNjAvTaq1Vu8zdQEE/gNLFI5RmKNwj8I1
-Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC
-"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAABHNCSVQICAgIfAhkiAAAAFBJREFU KJHV0SEKgEAUBNC3Ytm+weIdPZVnshitgk1QWOtWfxCcNjAvTaq1Vu8zdQEE/gNLFI5RmKNwj8I1 Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC "
        height="13"
        width="14" />
     <image
        y="1000.0309"
        x="722.34814"
        id="image4313"
-       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAABHNCSVQICAgIfAhkiAAAAFBJREFU
-KJHV0SEKgEAUBNC3Ytm+weIdPZVnshitgk1QWOtWfxCcNjAvTaq1Vu8zdQEE/gNLFI5RmKNwj8I1
-Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC
-"
+       xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA4AAAANCAYAAACZ3F9/AAAABHNCSVQICAgIfAhkiAAAAFBJREFU KJHV0SEKgEAUBNC3Ytm+weIdPZVnshitgk1QWOtWfxCcNjAvTaq1Vu8zdQEE/gNLFI5RmKNwj8I1 Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC "
        height="13"
        width="14" />
     <text
@@ -740,47 +728,47 @@ Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="218"
+       x="210"
        y="1012.3622"
        id="text4326"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4328"
-         x="218"
-         y="1012.3622">1-(a)</tspan></text>
+         x="210"
+         y="1012.3622">1-(S1)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="348"
+       x="340"
        y="1012.3622"
        id="text4330"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4332"
-         x="348"
-         y="1012.3622">1-(b)</tspan></text>
+         x="340"
+         y="1012.3622">1-(S2)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="478"
+       x="470"
        y="1012.3622"
        id="text4334"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4336"
-         x="478"
-         y="1012.3622">2-(a)</tspan></text>
+         x="470"
+         y="1012.3622">2-(S1)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:18px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
-       x="606"
+       x="600"
        y="1012.3622"
        id="text4338"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
          id="tspan4340"
-         x="606"
-         y="1012.3622">2-(b)</tspan></text>
+         x="600"
+         y="1012.3622">2-(S2)</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:20px;font-style:normal;font-weight:normal;line-height:125%;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;font-family:Sans"
@@ -833,7 +821,7 @@ Cq/vf+wxNz1hQEHGjQMbzma3PBv4DQbf/OPYAAAAAElFTkSuQmCC
        sodipodi:cy="511.40314"
        sodipodi:rx="6.7166405"
        sodipodi:ry="6.7166405"
-       d="m 93.242771,511.40314 a 6.7166405,6.7166405 0 1 1 -13.433281,0 6.7166405,6.7166405 0 1 1 13.433281,0 z"
+       d="m 93.242771,511.40314 c 0,3.7095 -3.007142,6.71664 -6.71664,6.71664 -3.709498,0 -6.716641,-3.00714 -6.716641,-6.71664 0,-3.7095 3.007143,-6.71664 6.716641,-6.71664 3.709498,0 6.71664,3.00714 6.71664,6.71664 z"
        transform="translate(0,492.36218)" />
   </g>
 </svg>
