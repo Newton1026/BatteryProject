@@ -99,3 +99,26 @@ int main(){
 	
 	return 0;
 }
+
+/*
+	// Condition: 1 Node executing to test its Recovery Effect. Don't forget to adjust the task Set.
+	if(CONTROL == 1){
+		// Executing one node after the other.
+		for(i=0;i < NODES;i++){
+			newNode(&node[i], taskSet, taskTimes);
+			while(node[i].battery > BATTERYLEVEL){
+				// Condition if only one node executes, it uses recovery effect during some interval.
+				if(node[i].battery > 2500 && node[i].battery < 2800){
+					kibam(&(node[i].battery), recoveryTaskSet, &timeInit, maxPeriod, recoveryTaskTimes, ITEMS(recoveryTaskSet),&(node[i].batteryUpTime));
+					printf("Node: %d .:. Battery: %.2f .:. UpTime: %.1f .:. timeInit: %.1f\n\n", i, node[i].battery, node[i].batteryUpTime, timeInit);
+				}else{
+					kibam(&(node[i].battery), node[i].tasks, &timeInit, maxPeriod, node[i].taskPeriods, ITEMS(taskSet), &(node[i].batteryUpTime));
+					printf("Node: %d .:. Battery: %.2f .:. UpTime: %.1f .:. timeInit: %.1f\n\n", i, node[i].battery, node[i].batteryUpTime, timeInit);
+				}
+			}
+			printf("############################# Node after Node ##################################\n\n");
+			timeInit = 0.0;
+		}
+		for(i=0;i < NODES;i++)	showNode(&node[i]);
+	}
+*/

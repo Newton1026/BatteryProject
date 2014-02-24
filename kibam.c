@@ -60,7 +60,8 @@ int kibam(float *batCapacity, float *currents, float *timeInit, float maxPeriod,
 				
 				i = (i0 * exp(- kl * t)) + ((((y0 * kl * c) - I)*(1 - exp(- kl * t))) / kl) - (I * c * ((kl * t) - 1 + exp(- kl * t)) / kl);
 				j = (j0 * exp(- kl * t)) + (y0 * (1 - c) * (1 - exp(- kl * t)))	- ((I * (1 - c) * ((kl * t) - 1 + exp(- kl * t))) / kl);
-				fprintf(results, "%f %f\n", i, j);	// Writing the result of 'i' and 'j' in the file.
+				fprintf(results, "%f\n", i);			// Writing the result of 'i' in the file OR...
+				// fprintf(results, "%f %f\n", i, j);		// Writing the result of 'i' and 'j' in the file.
 				
 				// If the battery charge is low.
 				if(i < (0.03 * i0)){
