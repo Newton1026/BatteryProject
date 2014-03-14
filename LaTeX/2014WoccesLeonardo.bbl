@@ -1,0 +1,107 @@
+\begin{thebibliography}{}
+
+\bibitem[Akyildiz et~al. 2002]{akyildiz2:2002}
+Akyildiz, I.~F., Su, W., Sankarasubramaniam, Y., and Cayirci, E. (2002).
+\newblock {Wireless Sensor Networks: A Survey}.
+\newblock {\em Computer Networks}, 38(4):393--422.
+
+\bibitem[{Aqeel-ur-Rehman} et~al. 2011]{aqeel:2011}
+{Aqeel-ur-Rehman}, Abbasi, A.~Z., Islam, N., and Shaikh, Z.~A. (2011).
+\newblock {A Review of Wireless Sensors and Networks' Applications in
+  Agriculture}.
+\newblock {\em CS\&I}.
+
+\bibitem[Buratti et~al. 2009]{Buratti2009}
+Buratti, C., Conti, A., Dardari, D., and Verdone, R. (2009).
+\newblock An overview on wireless sensor networks technology and evolution.
+\newblock {\em Sensors (Basel, Switzerland)}, 9(9):6869--96.
+
+\bibitem[Gungor and Hancke 2009]{Gungor2009}
+Gungor, V. and Hancke, G. (2009).
+\newblock {Industrial Wireless Sensor Networks: Challenges, Design Principles,
+  and Technical Approaches}.
+\newblock {\em IEEE Transactions on Industrial Electronics}, 56(10):4258--4265.
+
+\bibitem[Jongerden and Haverkort 2008a]{jongerden:2008-2}
+Jongerden, M.~R. and Haverkort, B.~R. (2008a).
+\newblock {Battery Modeling}.
+\newblock Technical report, University of Twente.
+
+\bibitem[Jongerden and Haverkort 2008b]{jongerden:2008}
+Jongerden, M.~R. and Haverkort, B.~R. (2008b).
+\newblock {Which Battery to Use?}
+\newblock {\em 24th UK Performance Engineering Workshop}, pages 76--88.
+
+\bibitem[Jurdak 2010]{Jurdak2010}
+Jurdak, R. (2010).
+\newblock {Radio sleep mode optimization in wireless sensor networks}.
+\newblock {\em Mobile Computing, IEEE \ldots}, 9(7):955--968.
+
+\bibitem[Kerasiotis et~al. 2010]{kerasiotis:2010}
+Kerasiotis, F., Prayati, A., Antonopoulos, C., Koulamas, C., and Papadopoulos,
+  G. (2010).
+\newblock {Battery Lifetime Prediction Model for a WSN Platform}.
+\newblock {\em Fourth International Conference on Sensor Technologies and
+  Applications (SENSORCOMM)}, pages 525--530.
+
+\bibitem[Lahiri et~al. 2002]{lahiri:2002}
+Lahiri, K., Raghunathan, A., Dey, S., and Panigrahi, D. (2002).
+\newblock {Battery-Driven System Design: A New Frontier in Low Power Design}.
+\newblock {\em 15th International Conference on VLSI Design (VLSID'02)}, pages
+  261--267.
+
+\bibitem[Li et~al. 2013]{li:2013}
+Li, H., Yi, C., and Li, Y. (2013).
+\newblock {Battery-Friendly Packet Transmission Algorithms for Wireless Sensor
+  Networks}.
+\newblock {\em IEEE Sensors Journal}, 13(10):202--207.
+
+\bibitem[Manwell and McGowan 1993]{manwell:1993}
+Manwell, J.~F. and McGowan, J.~G. (1993).
+\newblock {Lead Acid Battery Storage Model for Hybrid Energy Systems}.
+\newblock {\em Solar Energy}, 50(5):399--405.
+
+\bibitem[Nguyen et~al. 2011]{nguyen:2011}
+Nguyen, H.~A., Forster, A., Puccinelli, D., and Giordano, S. (2011).
+\newblock {Sensor Node Lifetime: An Experimental Study}.
+\newblock {\em IEEE International Conference on Pervasive Computing and
+  Communications Workshops (PERCOM Workshops)}, pages 202--207.
+
+\bibitem[{OMNet++ Community} 2014]{omnet:2014}
+{OMNet++ Community} (2014).
+\newblock {OMNeT++ Homepage}.
+\newblock {\em {http://www.omnetpp.org}}.
+
+\bibitem[Panigrahi et~al. 2001]{panigrahi:2001}
+Panigrahi, D., Chiasserini, C., Dey, S., Rao, R., Raghunathan, A., and Lahiri,
+  K. (2001).
+\newblock {Battery Life Estimation of Mobile Embedded Systems}.
+\newblock {\em 14th International Conference on VLSI Design}, pages 57--63.
+
+\bibitem[Rakhmatov and Vrudhula 2011]{rakhmatov:2002-2}
+Rakhmatov, D. and Vrudhula, S. (2011).
+\newblock {An Analytical High-Level Battery Model for Use in Energy Management
+  of Portable Electronic Systems}.
+\newblock {\em IEEE-ACM International Conference on Computer Aided Design
+  (ICCAD)}, pages 488--493.
+
+\bibitem[Rakhmatov et~al. 2002]{rakhmatov:2002}
+Rakhmatov, D., Vrudhula, S., and Chakrabarti, C. (2002).
+\newblock {Battery-Conscious Task Sequencing for Portable Devices Including
+  Voltage/Clock Scaling}.
+\newblock {\em 39th Design Automation Conference}, pages 189--194.
+
+\bibitem[Rao et~al. 2005]{rao:2005}
+Rao, V., Singhal, G., Kumar, A., and Navet, N. (2005).
+\newblock {Battery Model for Embedded Systems}.
+\newblock {\em 18th Internation Conference on VLSI Design held jointly with 4th
+  Internationa Conference on Embedded Systems Designs (VLSID)}, pages 105--110.
+
+\bibitem[Schneider et~al. 2001]{schneider:2011}
+Schneider, K.~K., Sausen, P.~S., and Sausen, A. (2001).
+\newblock {Análise Comparativa do Tempo de Vida de Baterias em Dispositivos
+  Móveis a Partir da Utilização de Modelos Analíticos}.
+\newblock {\em Tendências em Matemática Aplicada e Computacional},
+  12(1):43--54.
+
+\end{thebibliography}

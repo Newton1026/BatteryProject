@@ -6,7 +6,7 @@ function [y0, i0, j0] = kibam (y0, i0, j0, current, t0, timePeriod, showPlot, fi
 
 	% Defining constants.
 	c = 0.625;		% Original Value: 0.625
-	k = 0.000010;	% in min^(-1).
+	k = 0.00001;	% in min^(-1).
 	t_min = 60;
 	
 	% Defining variables.
