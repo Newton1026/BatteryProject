@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.29)  14 MAR 2014 16:43
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.10.29)  15 MAR 2014 14:08
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -619,64 +619,63 @@ File: ot1phv.fd 2001/06/04 scalable font definitions for OT1/phv.
 LaTeX Font Info:    Font shape `OT1/phv/bx/n' in size <10> not available
 (Font)              Font shape `OT1/phv/b/n' tried instead on input line 147.
 
-Underfull \vbox (badness 1688) has occurred while \output is active []
+Underfull \vbox (badness 1596) has occurred while \output is active []
 
  [3 <./images/battery.pdf>]
-LaTeX Font Info:    Try loading font information for OMS+ptm on input line 180.
+LaTeX Font Info:    Try loading font information for OMS+ptm on input line 181.
 
  (/usr/local/texlive/2013/texmf-dist/tex/latex/psnfss/omsptm.fd
 File: omsptm.fd 
 )
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 180.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 181.
 [4] <images/kibam-model.pdf, id=42, 545.75519pt x 328.59181pt>
 File: images/kibam-model.pdf Graphic file (type pdf)
 
 <use images/kibam-model.pdf>
-Package pdftex.def Info: images/kibam-model.pdf used on input line 224.
+Package pdftex.def Info: images/kibam-model.pdf used on input line 228.
 (pdftex.def)             Requested size: 192.0548pt x 115.63057pt.
 Package acronym Info: Label `acro:KiBaM' newly defined as it shall be overridde
 n
-although it is yet undefined on input line 225.
+although it is yet undefined on input line 229.
  [5 <./images/kibam-model.pdf>] [6]
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 344.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 352.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 354.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 362.
 LaTeX Font Info:    Font shape `OT1/ptm/bx/n' in size <6.94446> not available
-(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 354.
+(Font)              Font shape `OT1/ptm/b/n' tried instead on input line 362.
  [7]
-LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
-(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 384.
-
 <images/simulacao0/simulation0(edited).pdf, id=77, 562.1pt x 421.575pt>
 File: images/simulacao0/simulation0(edited).pdf Graphic file (type pdf)
 
 <use images/simulacao0/simulation0(edited).pdf>
 Package pdftex.def Info: images/simulacao0/simulation0(edited).pdf used on inpu
-t line 403.
+t line 430.
 (pdftex.def)             Requested size: 277.41176pt x 208.05951pt.
 LaTeX Font Info:    Font shape `OT1/phv/bx/it' in size <10> not available
-(Font)              Font shape `OT1/phv/b/it' tried instead on input line 404.
+(Font)              Font shape `OT1/phv/b/it' tried instead on input line 432.
 LaTeX Font Info:    Font shape `OT1/phv/b/it' in size <10> not available
-(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 404.
- [8 <./images/simulacao0/simulation0(edited).pdf>]
-<images/simulacao1/simulation1(edited).pdf, id=93, 562.1pt x 421.575pt>
+(Font)              Font shape `OT1/phv/b/sl' tried instead on input line 432.
+ [8]
+<images/simulacao1/simulation1(edited).pdf, id=81, 562.1pt x 421.575pt>
 File: images/simulacao1/simulation1(edited).pdf Graphic file (type pdf)
 
 <use images/simulacao1/simulation1(edited).pdf>
 Package pdftex.def Info: images/simulacao1/simulation1(edited).pdf used on inpu
-t line 419.
+t line 475.
 (pdftex.def)             Requested size: 277.41176pt x 208.05951pt.
- [9 <./images/simulacao1/simulation1(edited).pdf>]
+ [9 <./images/simulacao0/simulation0(edited).pdf>]
+LaTeX Font Info:    Font shape `OT1/ptm/bx/it' in size <10> not available
+(Font)              Font shape `OT1/ptm/b/it' tried instead on input line 500.
 LaTeX Font Info:    Font shape `OMS/ptm/m/n' in size <10> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 474.
- [10]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 545.
+ [10 <./images/simulacao1/simulation1(edited).pdf>]
 <images/simulation3.pdf, id=118, 550.09262pt x 284.52008pt>
 File: images/simulation3.pdf Graphic file (type pdf)
 
 <use images/simulation3.pdf>
-Package pdftex.def Info: images/simulation3.pdf used on input line 497.
+Package pdftex.def Info: images/simulation3.pdf used on input line 581.
 (pdftex.def)             Requested size: 277.41176pt x 143.4883pt.
 
 <images/simulacao3/situacao*(edited).pdf, id=119, 562.1pt x 421.575pt>
@@ -684,45 +683,43 @@ File: images/simulacao3/situacao*(edited).pdf Graphic file (type pdf)
 
 <use images/simulacao3/situacao*(edited).pdf>
 Package pdftex.def Info: images/simulacao3/situacao*(edited).pdf used on input 
-line 506.
+line 594.
 (pdftex.def)             Requested size: 256.07741pt x 192.05493pt.
- [11 <./images/simulation3.pdf> <./images/simulacao3/situacao*(edited).pdf
-
-pdfTeX warning: pdflatex (file ./images/simulacao3/situacao*(edited).pdf): PDF 
-inclusion: multiple pdfs with page group included in a single page
->] [12] (./2014WoccesLeonardo.bbl [13]) [14] (./2014WoccesLeonardo.aux) ) 
+ [11 <./images/simulation3.pdf>]
+[12 <./images/simulacao3/situacao*(edited).pdf>] (./2014WoccesLeonardo.bbl
+[13]) [14] (./2014WoccesLeonardo.aux) ) 
 Here is how much of TeX's memory you used:
- 8929 strings out of 493315
- 125280 string characters out of 6137903
- 236263 words of memory out of 5000000
- 12168 multiletter control sequences out of 15000+600000
+ 8933 strings out of 493315
+ 125328 string characters out of 6137903
+ 232277 words of memory out of 5000000
+ 12170 multiletter control sequences out of 15000+600000
  40865 words of font info for 85 fonts, out of 8000000 for 9000
- 963 hyphenation exceptions out of 8191
- 43i,15n,53p,1325b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/
-local/texlive/2013/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/local/texlive/2
-013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/20
-13/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/201
-3/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2013
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/local/texlive/2013/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/local/texlive/2013/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2013/texmf
--dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/texlive/2013/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/texlive/2013/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2013/texmf-dist/fo
-nts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2013/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2013/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2013/texmf-dist/fonts/t
-ype1/urw/courier/ucrr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw
-/helvetic/uhvb8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/helvet
-ic/uhvbo8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmb8a
-.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmbi8a.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/local/te
-xlive/2013/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on 2014WoccesLeonardo.pdf (14 pages, 388287 bytes).
+ 965 hyphenation exceptions out of 8191
+ 43i,15n,53p,688b,463s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2013/texmf-dist/font
+s/enc/dvips/base/8r.enc}</usr/local/texlive/2013/texmf-dist/fonts/type1/public/
+amsfonts/cm/cmex10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmmi10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/am
+sfonts/cm/cmmi12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmmi6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfo
+nts/cm/cmmi8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr10.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmr12.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmr6.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r8.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy1
+0.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.
+pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pf
+b></usr/local/texlive/2013/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/
+local/texlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/local/t
+exlive/2013/texmf-dist/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/local/texlive
+/2013/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/local/texlive/2013/texm
+f-dist/fonts/type1/urw/times/utmbi8a.pfb></usr/local/texlive/2013/texmf-dist/fo
+nts/type1/urw/times/utmr8a.pfb></usr/local/texlive/2013/texmf-dist/fonts/type1/
+urw/times/utmri8a.pfb>
+Output written on 2014WoccesLeonardo.pdf (14 pages, 386277 bytes).
 PDF statistics:
- 228 PDF objects out of 1000 (max. 8388607)
- 158 compressed objects within 2 object streams
+ 229 PDF objects out of 1000 (max. 8388607)
+ 159 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  31 words of extra memory for PDF output out of 10000 (max. 10000000)
 
