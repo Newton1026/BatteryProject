@@ -1,8 +1,8 @@
 %{
-    This source code defines the main informations for simulated nodes.
+    This source code defines the main informations for Duty Cycle analisys.
 
     Author: Leonardo Martins Rodrigues.
-    Date of creation: 15-03-2014 - Version: 1.0
+    Date of creation: 04-04-2014 - Version: 1.0
 
 	Execution instructions (terminal/console):
 	1) Access the folder where the files are located. For example:
@@ -10,7 +10,7 @@
 	2) Call 'octave'.
 		$ octave
 	3) Call the name of this script.
-		octave:1> model1
+		octave:1> modelDutyCycle
 	4) To log out, just type 'quit'.
 		octave:2> quit
 
@@ -26,7 +26,7 @@
 	acwMinLevel = 100;		% This value defines when the battery will stop to work.
 
 	% Setting the nodes in the simulation and their fields.
-	nodes = 2;
+	nodes = 1;
 	for z = 1:nodes
 		n(z).id = z;		% Node Id.
 		n(z).t0 = 0.0;		% Initial Time.
@@ -53,25 +53,28 @@
 
 	% Setting simulation variables.
 	p = 0.0;		% Period.
-	t_op = 600;		% Time of operation (in seconds).
+	
+	% Duty Cycle specifications.
+	Bi = [0.01536, 0.03072, 0.06144, 0.12288, 0.24576, 0.49152, 0.98304, 1.96608, 3.93216, 7.86432, 15.72864, 31.45728, 62.91456, 125.82912, 251.65824];
+	t_Bi = Bi(15)			% Beacon Interval (in seconds). Choose one of the fifteen indexes.
+	t_op = t_Bi * (1/4);	% Time in operation (in seconds).
+	t_sl = t_Bi * (3/4);	% Time in Sleep Mode (in seconds).
 	
 	% Main loop (Switching nodes).
 	while (n(z).i0 > acwMinLevel)
 		for z = 1:nodes
 			
-	 		I = 0.040;			% in Ampere
-	 		p = n(z).t0 + t_op;	% in seconds
-	 		[n(z).y0, n(z).i0, n(z).j0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, I, n(z).t0, p, n(z).id, n(z).fid);
-			n(z).t0 = p + 1.00;
-		
-			for x = 1:nodes
-				if (x != z)
-					I = 0.005;			% in Ampere
-					p = n(x).t0 + t_op;	% in seconds
-					[n(x).y0, n(x).i0, n(x).j0] = kibam (c, k, n(x).y0, n(x).i0, n(x).j0, I, n(x).t0, p, n(z).id, n(x).fid);
-					n(x).t0 = p + 1.00;
-				endif
-			endfor
+			% Executing the main charge.
+			I = 0.040;			% in Ampere
+			p = n(z).t0 + t_op;	% in seconds
+			[n(z).y0, n(z).i0, n(z).j0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, I, n(z).t0, p, n(z).id, n(z).fid);
+			n(z).t0 = p;
+			
+			% Let the battery to rest.
+			I = 0.005;			% in Ampere
+			p = n(z).t0 + t_sl;	% in seconds
+			[n(z).y0, n(z).i0, n(z).j0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, I, n(z).t0, p, n(z).id, n(z).fid);
+			n(z).t0 = p;
 		
 		endfor
 	endwhile
@@ -89,7 +92,7 @@
 	printf("\n");
 
 	% ############################################################################################
-	Plotting information from files.
+	% Plotting information from files.
 	hold off;
 	
 	for z = 1:nodes
