@@ -24,12 +24,13 @@ function [y0, i0, j0] = kibam (c, k, y0, i0, j0, current, t0, timePeriod, showPl
 	k_ = k / (c * (1-c));
 	
 	% Calculating the available charge on the wells.
-	for(t = t0/t_min: 0.01: timePeriod/t_min)
+	for(t = t0/t_min : 0.01 : timePeriod/t_min)
 		i = (i0 * exp(- k_ * t)) + ((((y0 * k_ * c) - I)*(1 - exp(- k_ * t))) / k_) - (I * c * ((k_ * t) - 1 + exp(- k_ * t)) / k_);
-		fprintf(fid, "%f %f\n", t, i);	
+		fprintf(fid, "%f %f\n", t, i);	% This line only writes the Available Charge Well state.
 		j = (j0 * exp(- k_ * t)) + (y0 * (1 - c) * (1 - exp(- k_ * t))) - ((I * (1 - c) * ((k_ * t) - 1 + exp(- k_ * t))) / k_);
+		% fprintf(fid, "%f %f %f\n", t, i, j);	% This line writes the Available and Bound Charge Well state. If used, please comment the previous fprintf line.
 	endfor
-	
+
 	% Updating the content of the two wells.
 	i0 = i;
 	j0 = j;

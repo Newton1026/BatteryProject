@@ -55,8 +55,7 @@ São abordados alguns modelos de bateria utilizados em simuladores para represent
 de uma bateria ao longo do tempo, conforme o consumo energético imposto pelos nodos.
 A importância do escalonamento de tarefas nos nodos (escalonamento do sono) também é discutida,
 assim como o chamado efeito recuperação das baterias.
-Resultados de simulações são usados para demonstrar a importância do escalonamento de execução de atividades em cada nodo,
-no aumento do tempo de vida da rede.
+Resultados de simulações são usados para demonstrar a importância do escalonamento na execução de atividades em cada nodo, refletindo no aumento do tempo de vida da rede.
 \end{resumo}
 
 \section{Introdução} \label{sec:introducao}
@@ -69,53 +68,50 @@ no aumento do tempo de vida da rede.
 % [ v ] - Fusão de Dados: citar importância sobre a não sobrecarga da rede (troca de mensagens).
 % [ v ] Indicar particionamento das seções do artigo.
 
-O desenvolvimento, seguido pela evolução e redução nos preços, de nodos sensores tem levado a uma popularização das Redes de
-Sensores sem Fio (RSSF).
+O desenvolvimento, seguido pela evolução e redução nos preços, de nodos sensores tem levado à uma popularização das Redes de Sensores sem Fio (RSSF).
 Esses nodos -- com capacidade de processamento, comunicação e sensoriamento de grandezas do ambiente
-(ex. temperatura, umidade, som, pressão atmosférica) -- têm propiciado o emprego de RSSF nos mais diversos domínios de
+(ex. temperatura, umidade, som, pressão atmosférica) -- têm propiciado o emprego de \ac{RSSF} nos mais diversos domínios de
 aplicação \cite{Buratti2009}.
 Originalmente, uma Rede de Sensores sem Fio era definida como aquela formada por um grande número de nodos,
 espalhados de forma aleatória e com capacidades de auto-gerenciamento \cite{akyildiz2:2002}.
-Atualmente encontra-se esse tipo de rede empregado em um escopo muito mais amplo, desde aplicações em ambientes
-industriais \cite{Gungor2009}, onde muitas vezes há um número limitado de nodos os quais são cuidadosamente implantados,
-até em aplicações da agropecuária onde é possível a existência de milhares de nodos, alguns com mobilidade \cite{aqeel:2011}.
+Atualmente, encontra-se esse tipo de rede empregado em um escopo muito mais amplo, desde aplicações em ambientes
+industriais \cite{Gungor2009} - onde muitas vezes há um número limitado de nodos os quais são cuidadosamente implantados - até em aplicações da agropecuária \cite{aqeel:2011} - onde é possível a existência de milhares de nodos, alguns com mobilidade.
 
-Independente do domínio de aplicação, em comum a todos os tipos de RSSF, existe o conceito de ``esforço colaborativo'' entre
+Independente do domínio de aplicação, em comum a todos os tipos de \ac{RSSF}, existe o conceito de ``esforço colaborativo'' entre
 os nodos, no sentido de monitorar as grandezas do ambiente. A ideia básica é que a confiança no monitoramento seja baseada em um grupo
 de sensores, de baixo custo, em vez de se basear em sensores individuais.
 Ademais, geralmente há uma redundância no número de nodos implantados, de forma que nem todos necessitam monitorar
 a mesma grandeza física simultaneamente.
-Outra característica importante nas RSSF é a necessidade de economia energética.
+Outra característica importante nas \ac{RSSF} é a necessidade de economia energética.
 O uso de baterias nos nodos implica na preocupação de se manter a rede operacional o maior tempo possível.
-Isso é decorrente do fato da substituição de baterias, quando ocorrer seus esgotamentos,
+Isso é decorrente do fato da substituição de baterias, quando ocorrerem seus esgotamentos,
 poder ser uma tarefa inviável ou ter um custo financeiro proibitivo, 
 quando a rede, por exemplo, for implantada em locais inóspitos ou tiver grande número de nodos.
 
 A redundância em RSSF e a necessidade de se estender o tempo de vida da rede implicam no estabelecimento de
-políticas para se efetuar rodízios na utilização dos nodos de forma eficaz.
-Ao atingir um determinado nível, conhecido como \emph{cutoff}, as reações eletroquímicas da bateria deixam de acontecer,
+políticas para se efetuar rodízio na utilização dos nodos de forma eficaz.
+Quando a voltagem da bateria atinge um determinado nível, conhecido como \emph{cutoff}, as reações eletroquímicas internas deixam de acontecer,
 indicando que a mesma está descarregada.
 Alguns nodos cujas baterias estejam próximas aos seus estados de \emph{cutoff} podem ser encarregados de executar tarefas que
 consumam menos energia, podendo até mesmo entrar em regimes ociosos (\textit{sleep mode}) enquanto outros nodos,
-com mais capacidade atual em suas baterias, assumem as tarefas de monitoramento e processamento local na rede.
+com maior capacidade atual em suas baterias, assumem as tarefas de monitoramento e processamento local na rede.
 
-As técnicas para se fazer alternâncias na execução dos nodos muitas vezes são denominadas de escalonamento do sono
+As técnicas que realizam alternância na execução dos nodos muitas vezes são denominadas de escalonamento do sono
 (\textit{sleep scheduling})~\cite{Jurdak2010}.
 Contudo, muitos dos trabalhos sobre este assunto são baseados em simulações nas quais assume-se
 que as baterias dos nodos têm comportamento simples, muitas vezes, lineares. Esse tipo de suposição pode afetar os resultados obtidos
-pelas simulações, pois as baterias possuem comportamentos bem mais complexos e difíceis de se modelar analiticamente.
+pelas simulações, pois as baterias possuem comportamentos bem mais complexos e difíceis de se modelar.
 		
-No contexto de modelagem de baterias, pesquisas apontam soluções para estimar o tempo de vida de baterias sob diversos tipos de cargas \cite{panigrahi:2001, rakhmatov:2002, jongerden:2008, kerasiotis:2010, nguyen:2011}.
-Em comum a esses trabalhos, a preocupação em definir modelos analíticos que representem os efeitos da Taxa de Capacidade 
+No contexto de modelagem de baterias, algumas pesquisas apontam soluções para estimar o tempo de vida de baterias sob diversos tipos de cargas \cite{panigrahi:2001, rakhmatov:2002, jongerden:2008, kerasiotis:2010, nguyen:2011}.
+Em comum a esses trabalhos, a preocupação em definir modelos que representem os efeitos da Taxa de Capacidade 
 (\textit{Rate Capacity Effect}) e o de Recuperação (\textit{Recovery Effect}), inerentes às baterias.
 
-De uma forma simplificada, o Efeito Taxa de Capacidade representa o comportamento não-linear da bateria quando submetido a diferentes
-descargas de corrente; enquanto o Efeito Recuperação representa a habilidade da bateria se recuperar quando está ociosa ou
-submetida a cargas baixas. Estudos na literatura~\cite{li:2013, rakhmatov:2002} apontam a existência de diferenças nos tempos de
-vida das baterias, decorrentes desses efeitos, conforme a ordem escolhida na execução de suas tarefas.
-Neste artigo é investigado, sob o ponto de vista de RSSF, o tempo de vida dos nodos, conforme a escolha
+De uma forma simplificada, o Efeito Taxa de Capacidade representa o comportamento não-linear da bateria quando submetida à diferentes descargas de corrente; enquanto o Efeito Recuperação representa a habilidade da bateria em se recuperar quando está ociosa ou
+submetida à cargas baixas. Estudos na literatura~\cite{rakhmatov:2002, li:2013} apontam a existência de diferenças nos tempos de
+vida das baterias, decorrentes desses efeitos, conforme a ordem escolhida pelos nodos na execução de suas tarefas.
+Neste artigo é investigado, no contexto das \ac{RSSF}, o tempo de vida dos nodos, conforme a escolha
 das atividades de transmissão e recepção de dados, além de atividades de processamento.
-O objetivo é mostrar os efeitos de Taxa de Capacidade e de Recuperação das baterias segundo a visão de um escalonamento do sono dos nodos da rede.
+O objetivo é mostrar os efeitos da Taxa de Capacidade e Recuperação nas baterias sob o ponto de vista do escalonamento de sono dos nodos da rede.
 
 Este artigo está organizado da seguinte forma. A Seção~\ref{sec:embasamento} trata sobre os conceitos básicos envolvidos neste trabalho. A Seção~\ref{sec:algoritmos} mostra algumas definições com relação ao modelo utilizado. A Seção~\ref{sec:simulacoes} apresenta as simulações realizadas, bem como alguns resultados preliminares obtidos neste trabalho. Na Seção~\ref{sec:conclusao}, apresentam-se as considerações finais sobre os assuntos discutidos neste artigo.
 
@@ -153,8 +149,8 @@ De forma geral, ao descarregar uma bateria, ocorre a oxidação do ânodo, gerando 
 Reações de redução ocorrem no cátodo, gerando íons carregados negativamente. A Figura~\ref{fig:battery} ilustra o funcionamento
 de uma bateria simples.
 	
-Além disso, cada bateria tem duas características próprias: $V_{OC}$ e $V_{cut}$. $V_{OC}$ é a voltagem em circuito aberto,
-ou seja, a carga total armazenada na bateria sem a presença de nenhuma corrente de descarga. $V_{cut}$ é o limite que indica
+Além disso, cada bateria tem duas características próprias: $V_{OC}$ é a voltagem em circuito aberto,
+ou seja, a carga total armazenada na bateria sem a presença de nenhuma corrente de descarga; e $V_{cut}$ é o limite que indica
 quando a bateria está descarregada.
 Dois parâmetros importantes são a \emph{capacidade teórica}, que especifica qual a
 quantidade de carga máxima que uma bateria suporta, e a \emph{capacidade atual}, que estabelece a
@@ -192,7 +188,7 @@ Tais efeitos são muito importantes para o tempo de vida e a capacidade de uma ba
 % [ v ] Mostrar equações e comentar sobre variáveis nelas encontradas.
 % [ v ] Mostrar um gráfico comparativo.
 
-As questões energéticas são de extrema importância no contexto das \acp{RSSF}, uma vez que o tempo de vida da rede
+As questões energéticas são de extrema importância no contexto das \ac{RSSF}, uma vez que o tempo de vida da rede
 depende das baterias individuais dos nodos que dela participam.
 É desejável que cada nodo maximize seu tempo de vida, podendo contribuir com a rede pelo maior período possível.
 Em um exemplo simples, onde um conjunto de nodos realiza o sensoriamento de uma determinada área, a falha de um nodo, por ter
@@ -209,7 +205,6 @@ Os modelos de bateria analíticos são fundamentações matemáticas baseadas em equa
 físicas das baterias. Servem para estimar, conforme a carga aplicada, o tempo de vida das baterias.
 Esses modelos descrevem a bateria de forma abstrata, porém, suas propriedades são modeladas utilizando apenas
 algumas equações~\cite{jongerden:2008-2}.
-		
 Por envolverem a avaliação de expressões analíticas, tornam-se computacionalmente flexíveis~\cite{schneider:2011}.
 Ou seja, é possível utilizar correntes como uma função de carga constante ou variável, ou alterar o tipo de bateria.
 Além disso, podem modelar os efeitos eletroquímicos inerentes às baterias, tais como o Efeito Recuperação e o Efeito da Taxa de Capacidade.
@@ -242,9 +237,7 @@ O parâmetro $c$ indica uma fração da carga total (inserida no tanque Carga Dispo
 Ao consumir uma corrente $I$, a bateria reduz sua carga disponível, aumentando a diferença entre as alturas nos dois tanques.
 Caso o consumo da corrente seja interrompido, inicia-se o fluxo de carga entre o tanque Carga Limite e Carga Disponível
 até que a altura $h_1$ seja novamente igual à altura $h_2$.
-Dessa forma, durante um período ocioso, a bateria pode aumentar sua capacidade e, consequentemente, manter-se ativa por mais tempo.
-		
-A troca de cargas entre os tubos é dada pelo sistema de equações diferenciais mostrado na Equação~\ref{eq:kibam-diferencial-equation}.
+Assim, durante um período ocioso, a bateria pode aumentar sua capacidade e, consequentemente, manter-se ativa por mais tempo. O fluxo entre os tubos é dado pelo sistema de equações diferenciais mostrado na Equação~\ref{eq:kibam-diferencial-equation}.
 \small
 	\begin{equation}
 	\begin{cases}
@@ -258,7 +251,6 @@ tendo como condições iniciais: $i(0) = c \cdot C$ e $j(0) = (1 - c) \cdot C$, on
 Além disso, $h_1 = i/c$ e $h_2 = j/(1 - c)$. Tal sistema de equações pode ser resolvido utilizando transformadas de
 Laplace~\cite{jongerden:2008}.
 A Equação~\ref{eq:kibam-equation} mostra como calcular a quantidade de carga nos dois tanques.
-
 \small
 \begin{equation}
 	\begin{cases}
@@ -269,7 +261,6 @@ A Equação~\ref{eq:kibam-equation} mostra como calcular a quantidade de carga nos
 \end{equation}
 \normalsize
 onde $k'$ é definido como:
-
 \small
 \begin{equation*}
 	k' = \frac{k}{c(1-c)},
@@ -300,7 +291,7 @@ A solução envolve fazer com que a probabilidade de recuperar capacidade durante 
 % [ v ] Comentar sobre a inserção de períodos ociosos entre tarefas.
 % [ v ] Mostrar gráfico com resultados de simulações.
 Escolher a ordem na qual as tarefas\footnote{O termo \emph{tarefa} se refere a qualquer atividade do nodo que necessite de carga da bateria.}
-devem ser realizadas em um nodo influencia a taxa de descarga da sua bateria, pois a submete a diferentes correntes,
+devem ser realizadas em um nodo influencia a taxa de descarga da sua bateria, pois a submete à diferentes correntes,
 ativando os seus efeitos inerentes, tais como  o Efeito Recuperação e o Efeito da Taxa de Capacidade.
 Algumas tarefas consomem mais energia que outras, exigindo mais corrente ou levando mais tempo para concluir.
 A escolha da ordem de execução das tarefas é chamada de \textit{escalonamento de tarefas} ou
@@ -314,7 +305,7 @@ Em~\cite{rakhmatov:2002}, apresenta-se um exemplo demonstrando o impacto do sequ
 Uma conclusão desse trabalho é que o tempo de vida da bateria é maximizado quando as tarefas são escolhidas de forma que
 haja um decrescimento nas cargas de corrente das tarefas.
 Ou seja, enquanto a bateria tem mais carga, as tarefas do nodo que consomem mais
-carga são escolhidas primeiro. A medida que a carga da bateria do nodo é reduzida, as tarefas que consomem menos carga são
+carga são escolhidas primeiro. À medida que a capacidade da bateria do nodo é reduzida, as tarefas que consomem menos carga são
 as escolhidas para executar.
 
 Em~\cite{li:2013}, apresenta-se a formulação do problema através de um simples exemplo para transmissão de pacotes em aplicações
@@ -332,14 +323,11 @@ Com isso, o objetivo é minimizar o consumo de carga total do sistema.
 % [ v ] Mostrar o pseudo-algoritmo do KiBaM.
 % [   ] Mostrar o pseudo-algotirmo do que é realizado nas simulações.
 
-Esta seção apresenta o modelo de bateria utilizado nas simulações.
+Esta seção apresenta o modelo de bateria utilizado nas simulações. Com relação ao ambiente de simulação, utiliza-se o GNU Octave \cite{octave:2014}. Por se tratar de uma linguagem interpretada de alto nível, bem estabelecida e voltada para cálculo numérico, a implementação de modelos matemáticos é facilitada.
+
 Como visto na Seção~\ref{ssec:modelos}, existem diversos modelos de bateria, cada um com suas características.
-O objetivo deste trabalho é observar o aumento no tempo de vida de uma \ac{RSSF} quando o Efeito Recuperação faz parte da rotina
-dos nodos nesta rede.
-Além disso, deseja-se simular adequadamente o Efeito da Taxa de Capacidade quando diferentes cargas são aplicadas nas baterias
-dos nodos da rede.
-		
-% Outro ponto que merece ser citado diz respeito ao modo como o modelo foi implementado. Por se tratar de uma linguagem de propósito geral, bem estabelecida e disponível em diversas plataformas, utiliza-se a \emph{Linguagem de Programação C}.
+O objetivo deste trabalho é observar o aumento no tempo de vida de uma \ac{RSSF} quando o Efeito Recuperação faz parte da rotina dos nodos nesta rede.
+Além disso, deseja-se simular adequadamente o Efeito da Taxa de Capacidade quando diferentes cargas são aplicadas nas baterias dos nodos da rede.
 		
 Diante desses motivos, um dos modelos de bateria que se encaixa no perfil descrito é o \ac{KiBaM}.
 Tal modelo aborda com certa simplicidade e grande abstração os conceitos característicos de uma bateria através da Equação~\ref{eq:kibam-equation}.
@@ -381,9 +369,9 @@ Por fim, o estado de cada tubo da bateria é salvo em um arquivo à parte para aná
 % [ v ] Apresentar algumas comparações entre os dois modelos simulados.
 % [ v ] Comentar sobre ganho percentual no tempo de vida dos nodos (rede).
 
-Esta seção tem por objetivo apresentar as simulações realizadas e os resultados preliminares desta pesquisa. O objetivo das simulações é fazer que o nodo execute até que a carga em sua bateria seja esgotada (ou alcance um valor mínimo predeterminado, \emph{cutoff}).
+Esta seção visa apresentar as simulações realizadas e os resultados preliminares desta pesquisa. O objetivo das simulações é fazer que o nodo execute até que a carga em sua bateria seja esgotada (ou alcance um valor mínimo predeterminado, \emph{cutoff}).
 %Para isso, considera-se que o nodo tem conhecimento da carga existente em sua bateria.
-O nodo é alimentado por uma bateria com capacidade teórica de $1000~mAh$ (ou $3600~As$) e conta com um conjunto de tarefas para executar, juntamente com seus respectivos tempos de execução.
+O nodo é alimentado por uma bateria com capacidade teórica de $1000~mAh$ (ou $3600~As$) e conta com um conjunto de tarefas para executar, bem como seus respectivos tempos de execução.
 		
 \begin{table}[ht]
 	\caption{Cargas utilizadas nas simulações.}
@@ -405,17 +393,14 @@ A primeira, denominada de $A$, tem consumo de $40~mA$ e executa por $10~min$.
 A segunda, $B$, consome $20~mA$ e tem tempo de execução igual a $5~min$.
 Por fim, a terceira, $C$, consome $5~mA$ e é executada por tempos variando entre $0-20~min$, de acordo com a simulação.
 
-Essas tarefas de um nodo equivalem, por exemplo, as de uma aplicação de monitoramento ambiental.
-A Tarefa $A$ pode representar o processamento contínuo por um determinado tempo ($10~min$)
-realizado por um nodo, correspondendo a uma leitura de sensor, seguida de um pequeno processamento local
-e transmissão do resultado para outro nodo.
+Sob o ponto de vista do nodo, tais tarefas equivalem, por exemplo, à uma aplicação de monitoramento ambiental. Neste contexto, a Tarefa $A$ representa o processamento contínuo por um determinado tempo ($10~min$) realizado por um nodo, correspondendo a uma leitura de sensor, um pequeno processamento local e transmissão do resultado para outro nodo.
 A Tarefa $B$ equivale ao período que o rádio receptor fica ligado à espera de novas comunicações de outro nodo.
 Finalmente, a Tarefa $C$ representa um período ocioso (\emph{sleep mode}) que o nodo tem para fazer valer o Efeito Recuperação em sua bateria.
 
 		
 A função \ac{KiBaM} é usada para calcular a quantidade de carga consumida na bateria quando o nodo executa sua tarefa atual.
 Assim, a capacidade da bateria é reduzida conforme a carga (corrente) aplicada ao realizar uma tarefa (Efeito da Taxa de Capacidade).
-Caso o nodo entre no \emph{sleep mode}, o \ac{KiBaM} é responsável por modelar o ganho de capacidade na bateria do nodo (Efeito Recuperação). Utilizou-se os seguintes valores para as constantes da Equação 2: $k = 10^{-5}$ e $c = 0,625$.
+Caso o nodo entre no \emph{sleep mode}, o \ac{KiBaM} é responsável por modelar o ganho de capacidade na bateria do nodo (Efeito Recuperação). Utilizam-se os seguintes valores para as constantes da Equação 2: $k = 10^{-5}$ e $c = 0,625$.
 
 Os resultados das simulações são mostrados em gráficos que descrevem a descarga no tubo Carga Disponível do nodo.
 Quatro cenários de uso são empregados para ilustrar diferentes situações de execução das tarefas do(s) nodo(s).
@@ -425,9 +410,9 @@ Quatro cenários de uso são empregados para ilustrar diferentes situações de exec
 % 2. Cenário 1: Nodos sem Efeito Recuperação X Nodo com Efeito Recuperação.
 	% Situação 1: Nodo sem Efeito Recuperação.
 	% Situação 2: Nodo com Efeito Recuperação em determinado intervalo.
-\begin{figure}[ht]
+\begin{figure}[!ht]
 	\centering
-	\includegraphics[width=.65\textwidth]{images/simulacao0/simulation0(edited).pdf}
+	\includegraphics[width=.63\textwidth]{images/simulacao0/simulation0(edited).pdf}
 	\caption{Cenário 1: Nodo sem \emph{sleep mode} (Situação 1).\newline
 	\hspace*{3.4cm}Nodo com \emph{sleep mode} de 8~horas (Situação 2).}
 	\label{fig:simulacao0}
@@ -452,15 +437,21 @@ Porém, ao dormir por $8~horas$, o nodo ainda está consumindo energia, mesmo que 
 em determinado momento, chega a um limite onde não consegue mais se recuperar.
 A partir desse ponto, é reiniciado o processo de descarga.
 
-\subsection{Cenário 2}
+
+\begin{figure}[!ht]
+	\centering
+	\includegraphics[width=.63\textwidth]{images/simulacao1/simulation1(edited).pdf}
+	\caption{Cenário 2: Nodo sem \emph{sleep mode} (Situação 1).\newline
+	\hspace*{3.4cm}Com diferentes tempos em \emph{sleep mode} (Situação 2, 3 e 4).}
+	\label{fig:simulacao1}
+\end{figure}
 
 % 2. Cenário 2: Nodo sem Efeito Recuperação X Nodo com Efeito Recuperação.
 	% Situação 1: Um nodo sem Efeito Recuperação.
 	% Situação 2: Um nodo com Efeito Recuperação (metade do tempo da tarefa principal).
 	% Situação 3: Um nodo com Efeito Recuperação (tempo igual ao da tarefa principal).
 	% Situação 4: Um nodo com Efeito Recuperação (dobro do tempo da tarefa princiapl).
-
-		
+\subsection{Cenário 2}		
 No Cenário 2, utilizam-se diferentes tempos para o \emph{sleep mode}.
 Na primeira situação, o nodo executa a tarefa principal $A$ sem que exista ``descanso'' para a bateria.
 Na segunda situação, insere-se a tarefa $C$ com período em \emph{sleep mode} igual à metade do tempo de execução da tarefa $A$, isto é, $5~min$.
@@ -470,28 +461,12 @@ O nodo executa de forma cíclica, isto é, executa sua tarefa principal e, em segu
 entra em \emph{sleep mode} pelo tempo determinado de acordo com a situação simulada.
 O processo é reiniciado ao término do \emph{sleep mode}. A Figura~\ref{fig:simulacao1} demonstra a execução das situações citadas.
 
-\begin{figure}[ht]
-	\centering
-	\includegraphics[width=.65\textwidth]{images/simulacao1/simulation1(edited).pdf}
-	\caption{Cenário 2: Nodo sem \emph{sleep mode} (Situação 1).\newline
-	\hspace*{3.4cm}Com diferentes tempos em \emph{sleep mode} (Situação 2, 3 e 4).}
-	\label{fig:simulacao1}
-\end{figure}
-
 
 De acordo com a Figura~\ref{fig:simulacao1}, a execução com \emph{sleep mode} (\emph{Situações 2, 3 e 4}) aumenta os tempos de vida do nodo.
 Na \emph{Situação 1}, sem \emph{sleep mode}, o tempo de vida da bateria é de $1200~min$ ($20~horas$). Na \emph{Situação 2}, que utiliza um ciclo de execução com as tarefa $A$ e $C$ (\emph{sleep mode} de $5~min$), o tempo de duração da bateria sobe para $1455~min$ ($24,250~horas$). Na \emph{Situação 3}, que executa as tarefas $A$ e $C$ (\emph{sleep mode} de $10~min$), o tempo de vida da bateria alcança $1680~min$ ($28~horas$). Por fim, na \emph{Situação 4}, que executa as tarefas $A$ e $C$ (\emph{sleep mode} de $20~min$), o tempo de vida da bateria alcança $2070~min$ ($34,5~horas$).
 
-A Tabela~\ref{tab:tempos-sim2} resume os resultados encontrados na simulação.
-Neste cenário, percebe-se claramente que, ao inserir períodos ociosos na realização das tarefas do nodo,
-ocorre um aumento significativo no tempo de vida da sua bateria graças ao Efeito Recuperação.
-Comparando as Situações 1 e 3 deste cenário, o aumento no tempo de vida da bateria do nodo é de $40\%$.
-No caso da Situação 3, o tempo em \emph{sleep mode} é igual ao tempo de execução da tarefa $A$.
-Ao comparar as Situações 1 e 4, onde o \emph{sleep mode} equivale ao dobro do tempo de execução da tarefa $A$,
-o aumento no tempo de vida da bateria sobe para $72,5\%$.
-
 \begin{table}[ht]
-	\caption{Tempos computados no Cenário 2.}
+	\caption{Tempos obtidos no Cenário 2.}
 	\label{tab:tempos-sim2}
 	\centering
 	\footnotesize{
@@ -506,10 +481,16 @@ o aumento no tempo de vida da bateria sobe para $72,5\%$.
 	}
 \end{table}
 
+A Tabela~\ref{tab:tempos-sim2} resume os resultados encontrados na simulação.
+Neste cenário, percebe-se claramente que, ao inserir períodos ociosos na realização das tarefas do nodo,
+ocorre um aumento significativo no tempo de vida da sua bateria graças ao Efeito Recuperação.
+Comparando as Situações 1 e 3 deste cenário, o aumento no tempo de vida da bateria do nodo é de $40\%$.
+No caso da Situação 3, o tempo em \emph{sleep mode} é igual ao tempo de execução da tarefa $A$.
+Ao comparar as Situações 1 e 4, onde o \emph{sleep mode} equivale ao dobro do tempo de execução da tarefa $A$,
+o aumento no tempo de vida da bateria sobe para $72,5\%$.
 
 
 
-\subsection{Cenário 3}
 % 3. Cenário 3: Nodos sem Efeito Recuperação X Nodos com Efeito Recuperação (ordem das cargas).
 	% Situação 1: Carga mais pesada primeiro (Sem sleep mode).
 	% Situação 2: Sleep mode no meio das cargas.
@@ -518,10 +499,11 @@ o aumento no tempo de vida da bateria sobe para $72,5\%$.
 	% Situação 4: Carga mais pesada por último (Sem sleep mode).
 	% Situação 5: Sleep mode no meio das cargas.
 	% Situação 6: Sleep mode no fim das cargas.
+\subsection{Cenário 3}
 No Cenário 3, acrescenta-se outra tarefa ($B$).
 O objetivo é verificar a influência da ordem de execução das tarefas para o Efeito Recuperação e, consequentemente,
 para o tempo de vida da bateria.
-O nodo executa o conjunto tarefas mostrado na Tabela~\ref{tab:cargas} em uma determinada ordem e de forma cíclica.
+O nodo executa o conjunto de tarefas mostrado na Tabela~\ref{tab:cargas} em uma determinada ordem e de forma cíclica.
 São consideradas seis situações.
 		
 % \begin{figure}[ht]
@@ -532,10 +514,9 @@ São consideradas seis situações.
 % \end{figure}
 % 
 % A Figura~\ref{fig:simulacao3} mostra graficamente o comportamento das Situações 1, 2 e 3. As Situações 4, 5 e 6 foram omitidas uma vez que apresentam resultados semelhantes. De acordo com tal figura, tanto na Situação 2 quanto na Situação 3 é possível observar o período em \emph{sleep mode} na execução das tarefas pelo nodo. Por exemplo, na Situação 2 o \emph{sleep mode} é representado pela ``barra'' central, de acordo com a ordem de execução $ACB$. Neste caso, percebe-se que o após o intervalo de descanso da bateria existe uma recuperação na capacidade da bateria, representado pelo nível da carga no início da tarefa $B$.
-		
-		
+
 \begin{table}[ht]
-	\caption{Tempos computados no Cenário 3.}
+	\caption{Tempos obtidos no Cenário 3.}
 	\label{tab:tempos-sim3}
 	\centering
 	\footnotesize{
@@ -551,7 +532,7 @@ São consideradas seis situações.
 	\end{tabular}
 	}
 \end{table}
-		
+
 Na Situação 1, o período em \emph{sleep mode} não é considerado, sendo admitida a ordem de execução $AB$.
 Para a Situação 2, o período em \emph{sleep mode} é acrescentado entre as tarefas principais, com ordem de excução $ACB$.
 Na Situação 3, o período em \emph{sleep mode} é deslocado para o fim do ciclo, sendo sua ordem: $ABC$.
@@ -562,8 +543,8 @@ Por fim, na Situação 6 o período em \emph{sleep mode} é deslocado para o fim do 
 
 Os tempos de execução podem ser observados na Tabela~\ref{tab:tempos-sim3}.
 É possível notar que a ordem de execução das tarefas pode influenciar o tempo de vida da bateria do nodo.
-Mais especificamente, nas Situações 2 e 3 existe uma pequena diferença nos tempos computados pela simulação.
-Ao observar as Situações 1 e 4, também é possível perceber uma pequena diferença nos tempos computados,
+Mais especificamente, nas Situações 2 e 3 existe uma pequena diferença nos tempos obtidos pela simulação.
+Ao observar as Situações 1 e 4, também é possível perceber uma pequena diferença nos tempos obtidos,
 sendo que nestes casos não são considerados os períodos em \emph{sleep mode}.
 			
 % Para efeito de comparação, em~\cite{schrickte:2013}, o autor realiza experimentos com nodos reais. De acordo com sua avaliação de consumo energético dos nodos, as correntes médias para um nodo ocioso, transmitindo e recebendo são, respectivamente: $10~mA$, $22~mA$ e $21~mA$. O autor considera tais valores condizentes com a especificação do microcontrolador utilizado e aponta que, caso uma bateria de $1050~mAh$ Li-ion fosse utilizada, o nodo teria um tempo de vida de aproximadamente $48~horas$. Neste caso não existe preocupação em utilizar o Efeito Recuperação da bateria, apontando valores em acordo com os alcançados através de simulações nesse trabalho.
@@ -574,12 +555,12 @@ sendo que nestes casos não são considerados os períodos em \emph{sleep mode}.
   % Situação 2: 2 nodos executando (Cem sleep mode).
 No Cenário 4, dois nodos são utilizados para verificar a diferença nos tempos de vida de suas baterias com e sem o Efeito Recuperação.
 Os nodos têm baterias com a mesma capacidade teórica.
-São consideradas duas situações.
+São consideradas duas situações com diferentes formas de escalonamento.
 
 \begin{figure}[ht]
 	\centering
 	\includegraphics[width=.65\textwidth]{images/simulation3.pdf}
-	\caption{Esquema de execução utilizado no Cenário 4.}
+	\caption{Escalonamentos utilizados no Cenário 4.}
 	\label{fig:esquema-simulacao4}
 \end{figure}
 	
@@ -639,7 +620,7 @@ por exemplo) pode drenar a bateria de forma mais rápida. Assim, na medida do pos
 
 O consumo energético dos nodos de uma \ac{RSSF} é um dos problemas mais pesquisados,
 devido à necessidade de se manter esse tipo de rede ``viva'' o maior tempo possível.
-Através da busca por métodos eficientes de economia de energia nos nodos é possível extender o tempo de vida de suas baterias,
+Através da busca por métodos eficientes de economia de energia nos nodos é possível estender o tempo de vida de suas baterias,
 aumentando o período ativo da rede como um todo.
 Prever o período que ainda resta para um nodo se manter ativo, dependendo da carga de corrente aplicada em qualquer momento,
 facilita o emprego de técnicas de escalonamento de sono, as quais estendem o tempo de vida da rede,
@@ -654,11 +635,12 @@ Enquanto isso, os outros nodos poderiam recuperar parte da capacidade em suas re
 Com isso, acredita-se que o Efeito Recuperação faria grande diferença no tempo de vida da rede.
 
 Como trabalhos futuros, novas simulações podem ser realizadas, incluindo mais nodos.
-Pretende-se integrar a presente modelagem em um ambiente voltado para simulação de \acp{RSSF},
+Pretende-se integrar a presente modelagem em um ambiente voltado para simulação de \ac{RSSF},
 como o OMNeT++~\cite{omnet:2014}.
 Esta ferramenta conta com um modelo simples de bateria (linear), não representando de forma apropriada
 os efeitos discutidos neste trabalho.
 
+\noindent \textbf{Agradecimentos:} Os autores agradecem a CAPES e FCT pelo apoio a este trabalho.
 
 \bibliographystyle{sbc}
 \bibliography{2014WoccesLeonardo}
