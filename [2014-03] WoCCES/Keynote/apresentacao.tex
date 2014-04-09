@@ -1,0 +1,472 @@
+\documentclass[10pt,xcolor=svgnames]{beamer}
+\usepackage[latin1]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{acronym}
+\usepackage{tabularx}
+\usepackage{ctable}
+\usepackage{lmodern}
+\usepackage{ragged2e}
+\usepackage[portuguese,ruled,lined,linesnumbered]{algorithm2e}
+
+\definecolor{foregroundcolor}{rgb}{0.00,0.00,0.50}
+\usecolortheme[named = foregroundcolor]{structure}
+\setbeamercolor{alerted text}{fg = foregroundcolor}
+\usetheme{Darmstadt}
+\usecolortheme{beaver}
+\setbeamertemplate{footline}[frame number]
+\beamertemplatenavigationsymbolsempty
+
+\def\dayname{\ifcase\day%
+	\or{01}\or{02}\or{03}\or{04}\or{05}%
+	\or{06}\or{07}\or{08}\or{09}\or{10}%
+	\or{11}\or{12}\or{13}\or{14}\or{15}%
+	\or{16}\or{17}\or{18}\or{19}\or{20}%
+	\or{21}\or{22}\or{23}\or{24}\or{25}%
+	\or{26}\or{27}\or{28}\or{29}\or{30}%
+	\or{31}%
+\fi}
+\def\monthname{\ifcase\month%
+	\or{Janeiro}\or{Fevereiro}\or{Mar{\c{c}}o}%
+	\or{Abril}\or{Maio}\or{Junho}%
+	\or{Julho}\or{Agosto}\or{Setembro}%
+	\or{Outubro}\or{Novembro}\or{Dezembro}%
+\fi}
+
+\newacro{STR}[STR]{Sistema de Tempo Real}
+\newacro{RSSF}[RSSF]{Rede de Sensores sem Fio}
+\newacro{RSSFs}{Redes de Sensores sem Fio}
+\newacro{WSN}{Wireless Sensor Network}
+\newacro{KiBaM}[KiBaM]{Kinect Battery Model}
+
+\setlength{\leftmargin}{0pt}
+\setlength{\leftmargini}{0pt}
+\setlength{\leftmarginii}{10pt}
+
+
+\newif\ifplacelogo % create a new conditional
+\placelogotrue % set it to true
+\logo{\ifplacelogo
+	\makebox[0.95\paperwidth]{%
+		\includegraphics[width=0.15\hsize]{ufsc.pdf}
+		\hfill
+		\includegraphics[width=0.13\hsize]{sbrc.png}
+	}
+	\fi
+}
+
+
+\begin{document}	
+
+\title[1]{Escalonamento de Sono e Efeito Recuperação em Baterias de Nodos em Redes de Sensores sem Fio}
+\author[1]{
+	Leonardo Martins Rodrigues\inst{1}\\Carlos B. Montez\inst{1}\\
+	Paulo Portugal\inst{2}\\Francisco Vasques\inst{2}}
+\institute[]{\scriptsize{
+	\inst{1}
+	Prog. de Pós-Grad. em Eng. de Automação e Sistemas (PPGEAS)\\
+	Universidade Federal de Santa Catarina (UFSC)
+	\and
+	\inst{2}
+	Faculdade de Engenharia da Universidade do Porto (FEUP)\\
+	Porto -- Portugal}}
+\date{{Florianópolis, }\monthname{ de 2014}}
+
+\begin{frame}
+	\titlepage
+\end{frame}
+
+\begin{frame}
+	\frametitle{Sumário}
+	\tableofcontents
+\end{frame}
+
+
+
+\section{Introdução}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Introdução}
+	\vspace{10px}
+
+	\textbf{Redes de Sensores sem Fio (RSSF)}
+	\begin{itemize}
+		\justifying
+		\item{Conjunto de nodos espalhados aleatoriamente com capacidade de auto-gerenciamento \cite{akyildiz2:2002};}
+		\item{Objetivo: monitorar algum fenômeno no ambiente (esforço colaborativo);}
+		\item{Aplicações: indústria, meio ambiente, militar, saúde, etc.;}
+		\item{Problema: gerenciamento energético, escalonamento do sono, etc.;}
+	\end{itemize}
+\end{frame}
+
+
+
+\section{Fundamentação Teórica}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Fundamentação Teórica}
+	\vspace{10px}
+
+	\textbf{Baterias}
+	\begin{itemize}
+		\justifying
+		\item{Dispositivo capaz de transformar energia química em elétrica;}
+		\item{Componentes: Ânodo, Cátodo, Eletrólito e eletrodos;}
+		
+		\begin{center}
+			\includegraphics[width=0.45\textwidth]{battery.pdf}
+		\end{center}
+		
+		 \item{Tecnologias: Ni-Cd, Ni-MH, Li-ion, Li-polymer, etc.;}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Fundamentação Teórica}
+	\vspace{10px}
+
+	\textbf{Baterias: Efeitos intrínsecos}
+	\begin{itemize}
+		\justifying
+		\item{Efeito da Taxa de Capacidade (\emph{Rate Capacity Effect}):}
+		\begin{itemize}
+			\justifying
+			\item{Dependência entre capacidade atual e a magnitude da corrente aplicada;}
+			\item{Ex.: altas correntes de descarga reduzem significativamente a capacidade;}
+		\end{itemize}
+		
+		\item{Efeito Recuperação (\emph{Recovery Effect}):}
+		\begin{itemize}
+			\justifying
+			\item{Capacidade de recuperar carga quando nenhuma carga externa está conectada;}
+		\end{itemize}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Fundamentação Teórica}
+	\vspace{10px}
+
+	\textbf{Modelos de Baterias}
+	\begin{itemize}
+		\justifying
+		\item{Objetivos:}
+		\begin{itemize}
+			 \item{Modelar o comportamento (não linear) das baterias;}
+			 \item{Estimar o tempo de vida de uma bateria de acordo com as cargas aplicadas;}
+		 \end{itemize}
+		 \item{Tipos: Eletroquímico, Circuito Elétrico, Analíticos, Estocásticos, Híbridos;}
+	\end{itemize}
+	\vspace{10px}
+	\textbf{Modelo Analítico: Kinect Battery Model (KiBaM) \cite{manwell:1993}}
+	\begin{itemize}
+		\justifying
+		\item{Modelo abstrato e bastante intuitivo;}
+		\item{Dois tanques: Carga Disponível e Carga Limite;}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Fundamentação Teórica}
+	\vspace{10px}
+	
+	\textbf{Modelo Analítico: Kinect Battery Model (KiBaM) \cite{manwell:1993}}
+	\begin{itemize}
+		\justifying
+		\item{Fluxo de carga depende dos parâmetros: ($h_2 - h_1$) e $k$;}
+		\item{Modela adequadamente os Efeitos Taxa de Capacidade e Recuperação \cite{jongerden:2008-2};}
+	\end{itemize}
+	\begin{center}
+		\includegraphics[width=0.55\textwidth]{kibam-model.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Fundamentação Teórica}
+	\vspace{10px}
+
+	\textbf{Modelo Analítico: Kinect Battery Model (KiBaM) \cite{manwell:1993}}
+	
+	\begin{equation}
+		\begin{cases}
+			i = i_0e^{-k't} + \frac{(y_0k'c-I)(1-e^{-k't})}{k'} - \frac{Ic(k't-1+e^{-k't})}{k'} \\
+			j = j_0e^{-k't} + y_0(1-c)(1-e^{-k't}) - \frac{I(1-c)(k't-1+e^{-k't})}{k'},
+		\end{cases}
+		\label{eq:kibam-equation}
+	\end{equation}
+	\vspace{10px}
+	\begin{equation*}
+		k' = \frac{k}{c(1-c)}, \hspace{10px} y0 = i0 + j0;
+	\end{equation*}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Fundamentação Teórica}
+	\vspace{10px}
+
+	\textbf{Escalonamento do Sono (\textit{Sleep Scheduling})}
+	\begin{itemize}
+		\justifying
+		\item{Objetivos:}
+		\begin{itemize}
+			 \item{Realizar o rodízio entre os nodos para poupar energia;}
+			 \item{Escolher adequadamente a ordem de execução das tarefas;}
+			 \item{Aumentar o tempo de vida da rede;}
+		 \end{itemize}
+		 \item{Tarefas que precisam de maior carga devem executar primeiro \cite{rakhmatov:2002};}
+		 \item{Inserir períodos ociosos entre tarefas favorece a bateria \cite{li:2013};}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Fundamentação Teórica}
+	\vspace{10px}
+
+	\textbf{Escalonamento do Sono (\textit{Sleep Scheduling})}
+	\begin{center}
+		\includegraphics[width=0.9\textwidth]{cargas.pdf}
+	\end{center}
+\end{frame}
+
+\section{Modelo}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Modelo}
+	\vspace{10px}
+	
+	\begin{itemize}
+		\justifying
+		\item{Objetivos específicos do trabalho:}
+		\begin{itemize}
+			\justifying
+			\item{Observar o aumento no tempo de vida de uma RSSF quando o Efeito Recuperação faz parte da rotina dos nodos;}
+			\item{Simular de forma adequada o Efeito Taxa de Capacidade;}
+		\end{itemize}
+		\item{Ambiente de simulação: GNU Octave;}
+		\item{Modelo escolhido: KiBaM (analítico);}
+		\item{Constantes: $k = 10^{-5}$ e $c = 0,625$;}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Modelo}
+	\vspace{10px}
+	\begin{table}[ht]
+		\caption{Cargas utilizadas nas simulações.}
+		\label{tab:cargas}
+		\centering
+		\footnotesize{
+		\begin{tabular}{p{1.5cm}p{2.0cm}p{3.8cm}}
+			\toprule
+			\textbf{Tarefa}	& \textbf{Carga (mA)}	& \textbf{Tempo de execução (min)}	\\ \toprule
+			$A$		& $40$				& $10$		\\
+			$B$		& $20$				& $5$		\\
+			$C$		& $5$				& $0-20$	\\ \bottomrule
+		\end{tabular}
+		}
+	\end{table}
+\end{frame}
+
+
+
+\section{Resultados}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Resultados}
+	\vspace{10px}
+	\textbf{Cenário 1:}
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{simulation0(edited).pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Resultados}
+	\vspace{10px}
+	\textbf{Cenário 1:}
+	\begin{table}[ht]
+		\caption{Tempos obtidos no Cenário 1.}
+		\label{tab:tempos-sim1}
+		\centering
+		\begin{tabular}{p{1.5cm}p{2.0cm}p{2.0cm}p{2.5cm}}
+			\toprule
+			\textbf{Situação}	& \textbf{\emph{Sleep Mode}}	& \textbf{Tarefa(s)}	& \textbf{Tempo (min)}	\\ \toprule
+			1					& Não							& $A$						& $1200$ ($20,00~h$)	\\
+			2					& Sim ($8~h$)					& $A \rightarrow C \rightarrow A$			& $1550$ ($25,83~h$)	\\ \bottomrule
+		\end{tabular}
+	\end{table}
+	\begin{itemize}
+		\justifying
+		\item{Aumento percentual: $29,16\%$;}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Resultados}
+	\vspace{10px}
+	\textbf{Cenário 2:}
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{simulation1(edited).pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Resultados}
+	\vspace{10px}
+	\textbf{Cenário 2:}
+	\begin{table}[ht]
+		\caption{Tempos obtidos no Cenário 2.}
+		\label{tab:tempos-sim2}
+		\centering
+		\normalsize{
+		\begin{tabular}{p{1.5cm}p{2.2cm}p{1.8cm}p{2.2cm}}
+			\toprule
+			\textbf{Situação}	& \textbf{\emph{Sleep Mode}}	& \textbf{Tarefa(s)}	& \textbf{Tempo (min)}	\\ \toprule
+			1					& Não							& $A$					& $1200$ ($20,00~h$)	\\
+			2					& Sim ($5~min$)					& $AC$					& $1455$ ($24,25~h$)	\\
+			3					& Sim ($10~min$)				& $AC$					& $1680$ ($28,00~h$)	\\
+			4					& Sim ($20~min$)				& $AC$					& $2070$ ($34,50~h$)	\\ \bottomrule
+		\end{tabular}
+		}
+	\end{table}
+	\begin{itemize}
+		\justifying
+		\item{Aumento percentual (1|3): $40,00\%$;}
+		\item{Aumento percentual (1|4): $72,50\%$;}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Resultados}
+	\vspace{10px}
+	\textbf{Cenário 3:}
+	\begin{table}[ht]
+		\caption{Tempos obtidos no Cenário 3.}
+		\label{tab:tempos-sim3}
+		\centering
+		\begin{tabular}{p{1.5cm}p{2.0cm}p{2.0cm}p{2.2cm}}
+			\toprule
+			\textbf{Situação}	& \textbf{\emph{Sleep Mode}}	& \textbf{Ordenação}	& \textbf{Tempo (min)}	\\ \toprule
+			1			& Não					& \{AB\}		& $555$ ($09,25~h$)	\\
+			2			& Sim ($10~min$)		& \{ACB\}		& $725$ ($12,08~h$)	\\
+			3			& Sim ($10~min$)		& \{ABC\}		& $750$ ($12,50~h$)	\\
+			4			& Não					& \{BA\}		& $570$ ($09,50~h$)	\\
+			5			& Sim ($10~min$)		& \{BCA\}		& $750$ ($12,50~h$)	\\
+			6			& Sim ($10~min$)		& \{BAC\}		& $750$ ($12,50~h$)	\\ \bottomrule
+		\end{tabular}
+	\end{table}
+\end{frame}
+
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Resultados}
+	\vspace{10px}
+	\textbf{Cenário 4:}
+	\vspace{10px}
+	\begin{center}
+		\includegraphics[width=0.8\textwidth]{simulation3.pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Resultados}
+	\vspace{10px}
+	\textbf{Cenário 4:}
+	\begin{center}
+		\includegraphics[width=0.6\textwidth]{situacao*(edited).pdf}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Resultados}
+	\vspace{10px}
+	\textbf{Cenário 4:}
+	\begin{table}[ht]
+		\caption{Tempos obtidos no Cenário 4.}
+		\label{tab:tempos-sim4}
+		\centering
+		\begin{tabular}{p{1.4cm}p{3.0cm}p{1.5cm}p{2.7cm}}
+			\toprule
+			\textbf{Situação}	& \textbf{\emph{Sleep Mode}}	& \textbf{Tarefa(s)}	& \textbf{Tempo (min)}	\\ \toprule
+			1					& Não							& $A$					& $1202,00$ ($20,03~h$)	\\
+			*					& Sim \footnotesize{(S/ Recuperação)}			& $AC$					& $1382,30$ ($23,03~h$)	\\
+			2					& Sim ($10~min$)				& $AC$					& $1662,76$ ($27,71~h$)	\\ \bottomrule
+		\end{tabular}
+	\end{table}
+	\begin{itemize}
+		\justifying
+		\item{Aumento percentual (1|2): $38,33\%$;}
+		\item{Aumento percentual (*|2): $20,32\%$;}
+	\end{itemize}
+\end{frame}
+
+
+
+\section{Conclusão}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Conclusão}
+	\vspace{10px}
+	
+	\begin{itemize}
+		\justifying
+		\item{O consumo energético dos nodos é relevante no contexto das RSSF;}
+		\item{O Efeito da Taxa de Capacidade e, principalmente, o Efeito Recuperação desempenham importante papel no tempo de vida da bateria de um nodo;}
+		\item{Em uma RSSF com diversos nodos, alguns podem coletar informações enquando outros recuperam energia;}
+	\end{itemize}
+	
+	\vspace{10px}
+	\textbf{Trabalhos Futuros}
+	\begin{itemize}
+		\justifying
+		\item{Expandir as simulações para diversos nodos.}
+		\item{Avaliar o desempenho do KiBaM em baterias Li-ion.}
+		\item{Integrar o modelo de bateria em uma ferramenta voltada para simulação de RSSF, como o OMNeT++;}
+	\end{itemize}
+\end{frame}
+
+
+
+\section{Perguntas}
+\placelogofalse
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Referências bibliográficas}
+	\justifying
+	\bibliographystyle{IEEEtran}
+	\bibliography{bibliography}
+\end{frame}
+
+\begin{frame}
+	\vspace{-15pt}
+	\frametitle{Perguntas}
+	\begin{center}
+	\includegraphics[width=0.5\hsize]{perguntas.png}\\
+	\end{center}
+\end{frame}
+
+\end{document}

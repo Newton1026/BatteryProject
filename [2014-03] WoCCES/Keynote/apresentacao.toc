@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.26pt}
+\select@language {brazil}
+\beamer@sectionintoc {1}{Introdu\c c\~ao}{3}{0}{1}
+\beamer@sectionintoc {2}{Fundamenta\c c\~ao Te\'orica}{4}{0}{2}
+\beamer@sectionintoc {3}{Modelo}{11}{0}{3}
+\beamer@sectionintoc {4}{Resultados}{13}{0}{4}
+\beamer@sectionintoc {5}{Conclus\~ao}{21}{0}{5}
+\beamer@sectionintoc {6}{Perguntas}{22}{0}{6}
