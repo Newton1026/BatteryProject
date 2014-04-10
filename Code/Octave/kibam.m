@@ -13,9 +13,6 @@
 
 function [y0, i0, j0, t0] = kibam (c, k, y0, i0, j0, t0, task_i, task_t, fid)
 	
-	% Defining constants.
-	t_min = 1;
-	
 	% Defining variables.
 	I = task_i;
 	y0 = i0 + j0;
@@ -24,7 +21,7 @@ function [y0, i0, j0, t0] = kibam (c, k, y0, i0, j0, t0, task_i, task_t, fid)
 	k_ = k / (c * (1-c));
 	
 	% Calculating the available charge on the wells.
-	t = ((task_t)/t_min);
+	t = (task_t);
 	t0 = t0 + (task_t);
 	
 	i = (i0 * exp(- k_ * t)) + ((((y0 * k_ * c) - I)*(1 - exp(- k_ * t))) / k_) - (I * c * ((k_ * t) - 1 + exp(- k_ * t)) / k_);

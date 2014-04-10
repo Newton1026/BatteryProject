@@ -30,7 +30,7 @@
 	acwMinLevel = 0;		% This value defines when the battery will stop to work.
 
 	% Setting the nodes in the simulation and their fields.
-	nodes = 2;
+	nodes = 1;
 	for z = 1:nodes
 		n(z).id = z;		% Node Id.
 		n(z).t0 = 0.0;		% Initial Time (in seconds).
@@ -60,14 +60,19 @@
 	
 	% Duty Cycle specifications.
 	Bi = [0.01536, 0.03072, 0.06144, 0.12288, 0.24576, 0.49152, 0.98304, 1.96608, 3.93216, 7.86432, 15.72864, 31.45728, 62.91456, 125.82912, 251.65824];
-	t_Bi = Bi(13);			% Beacon Interval (in seconds). Choose one of the fifteen indexes of 'Bi'.
+	t_Bi = Bi(10);			% Beacon Interval (in seconds). Choose one of the fifteen indexes of 'Bi'.
 	t_opr = t_Bi * (1/4);	% Time in operation (in seconds).
 	t_slp = t_Bi * (3/4);	% Time in Sleep Mode (in seconds).
 	printf("\n	Beacon Interval: %f", t_Bi);
 	
 	% Defining Charges and its times.
-	task_i = [0.040, 0.005];
-	task_t = [t_opr, t_slp];
+	A = [0.040, t_opr];		% [current, time_of_operation].
+	B = [0.020, t_opr];		% [current, time_of_operation].
+	C = [0.005, t_slp];		% [current, time_of_operation].
+	
+	task_i = [A(1), C(1)];
+	task_t = [A(2), C(2)];
+	
 	printf("\n	Charges: ");
 	for y = 1:length(task_i)
 		printf("%f ", task_i(y));
@@ -77,12 +82,37 @@
 	% Main loop (Execute until the battery reaches 'acwMinLevel').
 	while (n(z).i0 > acwMinLevel)
 		for z = 1:nodes
-
-			% Executing the charges.
+			
 			for y = 1:length(task_i)
 				[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(y), task_t(y), n(z).fid);
 			endfor
-
+			
+			% % Scenario #1.
+			% % Executing the charges.
+			% if((n(z).t0 > 50000 && n(z).t0 < 78800))
+			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(3), task_t(3), n(z).fid);
+			% else
+			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(1), task_t(1), n(z).fid);
+			% endif
+			
+			% % Scenario #2.
+			% for y = 1:length(task_i)
+			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(y), task_t(y), n(z).fid);
+			% endfor
+			
+			% % Scenario #3.
+			% for y = 1:length(task_i)
+			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(y), task_t(y), n(z).fid);
+			% endfor
+			
+			% % Scenario #4.
+			% 	 		[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(1), task_t(1), n(z).fid);
+			% for x = 1:nodes
+			% 	if (x != z)
+			% 		[n(x).y0, n(x).i0, n(x).j0, n(x).t0] = kibam (c, k, n(x).y0, n(x).i0, n(x).j0, n(x).t0, task_i(3), task_t(3), n(x).fid);
+			% 	endif
+			% endfor
+			
 		endfor
 	endwhile
 	
@@ -98,9 +128,9 @@
 	for z = 1:nodes
 		a = load([int2str(n(z).id) ".txt"]);
 		if (z == 1)
-			plot(a(:,1), a(:,2), "b", 'linestyle', "-", 'linewidth', 0.05);
+			plot(a(:,1), a(:,2), "b", 'linestyle', "-", 'linewidth', 0.2);
 		else
-			plot(a(:,1), a(:,2), "g", 'linestyle', "-", 'linewidth', 0.05);
+			plot(a(:,1), a(:,2), "g", 'linestyle', "-", 'linewidth', 0.2);
 		endif
 		hold on;
 	endfor
