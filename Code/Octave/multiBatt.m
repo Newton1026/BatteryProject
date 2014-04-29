@@ -1,9 +1,9 @@
 %{
-    This source code defines the main informations for Duty Cycle analysis.
+    This source code defines the main informations for Duty Cycle analysis and uses multi-battery concept.
 
     Author: Leonardo Martins Rodrigues.
-    Date of creation: 04-04-2014 - Version: 1.0
-	Last modification: 22-04-2014
+    Date of creation: 28-04-2014 - Version: 1.0
+	Last modification: 29-04-2014
 
 	Execution instructions (terminal/console):
 	1) Access the folder where the files are located. For example:
@@ -11,13 +11,16 @@
 	2) Call 'octave'.
 		$ octave
 	3) Call the name of this script.
-		octave:1> dutyCycle
+		octave:1> multiBatt
 	4) To log out, just type 'quit'.
 		octave:2> quit
 
 	Notes:
 		1)	1 A = 1 C/s (Coulomb/second) .:. 1 As = 1 C
 			3600 As = 1 Ah = 1000 mAh .:. 7200 As = 2 Ah = 2000 mAh
+			OBS.: http://www.unitjuggler.com/convert-electriccharge-from-As-to-mAh.html (Converter)
+			
+		2)	7200 As (2000mAh) * 56,25 % = 4050 As (1140 mAh)
 %}
 
 	% Discovering the simulation time. Getting the time at the beggining of the simulation.
@@ -25,7 +28,7 @@
 
 	% ############################################################################################
 	% Setting the initial KiBaM Parameters (all nodes with the same values).
-	y0 = 7200;				% Initial charge in the battery (Available + Bound Charge Wells) (in As).
+	y0 = 4050;				% Initial charge in the battery (Available + Bound Charge Wells) (in As).
 	c = 0.625;				% The constant that defines the fraction in Available Charge Well.
 	k = 0.00001;			% in min^(-1).
 	acwMinLevel = 0;		% This value defines when the battery will stop to work (acw -> Available Charge Well).
@@ -33,16 +36,25 @@
 	% ############################################################################################
 	% Setting the nodes in the simulation and their fields.
 	nodes = 1;
+	batteries = 2;
+	
 	for z = 1:nodes
 		n(z).id = z;		% Node Id.
 		n(z).t0 = 0.0;		% Initial Time (in seconds).
-		n(z).y0 = y0;		% Initial Battery Capacity.
-		n(z).i0 = (c)*y0;	% Initial Capacity at Available Well.
-		n(z).j0 = (1-c)*y0;	% Initial Capacity at Bound Well.
+		n(z).y0 = ones(1,batteries);	% Initial Battery Capacity: [cell#1, cell#2, ..., cell#n].
+		n(z).i0 = ones(1,batteries);	% Initial Capacity at Available Well: [cell#1, cell#2, ..., cell#n].
+		n(z).j0 = ones(1,batteries);	% Initial Capacity at Bound Well: [cell#1, cell#2, ..., cell#n].
 		n(z).i = 0.0;		% Actual Capacity at Available Well.
 		n(z).j = 0.0;		% Actual Capacity at Bound Well.
 		n(z).fid = 0;		% Node File Descriptor.
 	endfor
+	
+	for w = 1:batteries
+		n(z).y0(w) = y0;
+		n(z).i0(w) = (c)*y0;
+		n(z).j0(w) = (1-c)*y0;
+	endfor
+	
 	
 	% ############################################################################################
 	% Cleaning any existent files.
@@ -57,7 +69,7 @@
 		filename = [int2str(z) ".txt"];
 		n(z).fid = fopen (filename, "a");
 	endfor
-
+	
 	% ############################################################################################
 	% Duty Cycle specifications.
 	Bi = [0.01536, 0.03072, 0.06144, 0.12288, 0.24576, 0.49152, 0.98304, 1.96608, 3.93216, 7.86432, 15.72864, 31.45728, 62.91456, 125.82912, 251.65824];
@@ -82,42 +94,28 @@
 	printf("\n");
 	
 	% ############################################################################################
-	% Main loop (Execute until the battery reaches 'acwMinLevel').
-	while (n(z).i0 > acwMinLevel)
+	% Main loop (Execute until the batteries reaches 'acwMinLevel').
+	loop = true;
+	while (loop)
 		for z = 1:nodes
 			
-			% for y = 1:length(task_i)
-				% [n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(y), task_t(y), n(z).fid);
-			% endfor
+			% Discovering which battery has the highest capacity at Available Charge Well ('w' is the index).
+			w = betterBatt(n(z).i0);
 			
-			% % Scenario #1.
-			% % Executing the charges.
-			% if((n(z).t0 > 50000 && n(z).t0 < 78800))
-			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(3), task_t(3), n(z).fid);
-			% else
-			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(1), task_t(1), n(z).fid);
-			% endif
-			
-			% % Scenario #2.
-			% for y = 1:length(task_i)
-			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(y), task_t(y), n(z).fid);
-			% endfor
-			
-			% % Scenario #3.
-			% for y = 1:length(task_i)
-			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(y), task_t(y), n(z).fid);
-			% endfor
-			
-			% Scenario #4.
-			[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(1), task_t(1), n(z).fid);
-			% for x = 1:nodes
-			% 	if (x != z)
-			% 		[n(x).y0, n(x).i0, n(x).j0, n(x).t0] = kibam (c, k, n(x).y0, n(x).i0, n(x).j0, n(x).t0, task_i(3), task_t(3), n(x).fid);
-			% 	endif
-			% endfor
-			
-			fprintf(n(z).fid, "%f %f\n", n(z).t0/60, n(z).i0);
-			
+			% Executing the task.
+			if(w == 0)
+				loop = false;
+			else
+				[n(z).y0(w), n(z).i0(w), n(z).j0(w), n(z).t0] = kibam (c, k, n(z).y0(w), n(z).i0(w), n(z).j0(w), n(z).t0, task_i(1), task_t(1), n(z).fid);
+				fprintf(n(z).fid, "%f %f %d\n", n(z).t0/60, n(z).i0(w),w); % Print information in the file.
+				
+				% Let the others batteries to rest.
+				for x = 1:length(n(z).i0)
+					if (x != w)
+						[n(z).y0(x), n(z).i0(x), n(z).j0(x), n(z).t0] = kibam (c, k, n(z).y0(x), n(z).i0(x), n(z).j0(x), n(z).t0-task_t(1), task_i(3), task_t(1), n(z).fid);
+					endif
+				endfor
+			endif
 		endfor
 	endwhile
 	
@@ -125,7 +123,7 @@
 	for z = 1:nodes
 		fclose(n(z).fid);
 	endfor
-
+	
 	% ############################################################################################
 	% Plotting information from files.
 	hold off;
