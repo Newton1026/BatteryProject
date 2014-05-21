@@ -36,8 +36,6 @@ typedef struct associated_device_tag{
 	uint8_t  lqi;           // Link Quality Indication (0-FF)
 	double   vbat;          // Battery Voltage of Node V
 	double   temperature;   // Temperature of Die °C
-	double   probability;   // Probability of Node (0-100%)
-	double   rand;          // Probability of Node (0-100%)
 }associated_device_t;
 
 /* === MACROS ============================================================== */
@@ -85,12 +83,7 @@ static uint8_t beacon_payload[BEACON_PAYLOAD_LEN];
 static coord_state_t coord_state = COORD_STARTING;
 
 /** Fusion parameters */
-static double target_fusion    = 0.35;
-static double actual_fusion    = 0.0;
-static double media_fusion     = 0.0;
-static double media_nodes      = 0.0;
 static uint32_t cicle_fusion   = 0;
-static uint8_t target_nodes    = 2;
 static uint8_t frames_received = 0;
 
 /* === PROTOTYPES ========================================================== */
@@ -197,8 +190,6 @@ void usr_mlme_reset_conf(uint8_t status){
 			device_list[index].lqi           = 0;
 			device_list[index].vbat          = 0.0;
 			device_list[index].temperature   = 0.0;
-			device_list[index].probability   = 0.0;
-			device_list[index].rand          = 0.0;
 		}
 
         /*
@@ -499,8 +490,8 @@ static void bcn_payload_update_cb(void *parameter){
 
 				actual_temp	+= device_list[index].temperature;
 
-				printf(" | ID: %02d > %d, %d, %.2f, %.2f, %.2f, %.2f", index, device_list[index].short_address, device_list[index].lqi,
-				device_list[index].vbat, device_list[index].temperature, device_list[index].probability, device_list[index].rand);
+				printf(" | ID: %02d > %d, %d, %.2f, %.2f", index, device_list[index].short_address, device_list[index].lqi,
+				device_list[index].vbat, device_list[index].temperature);
 			}
 			else{
 				printf(" | ID: %02d > Waiting data", index);
@@ -517,18 +508,7 @@ static void bcn_payload_update_cb(void *parameter){
 	else
 		actual_temp	= 0.0;
 
-	if(no_of_assoc_devices > 0)
-		actual_fusion = ((double) frames_received) / ((double) no_of_assoc_devices);
-	else
-		actual_fusion = 0.0;
-
-	media_fusion = (media_fusion * 0.75) + (actual_fusion * 0.25);
-	media_nodes	 = (media_nodes * 0.75) + (frames_received * 0.25);
-
-	if(no_of_assoc_devices > 0 && frames_received > 0){
-		printf(" - F: %.2f,%.2f,%.2f,%.2f,%.2f\n", actual_temp, target_fusion, actual_fusion, media_fusion, media_nodes);
-	}
-	else	printf("\n");
+	printf("\n");
 	
 	// Signal next turn
 	++cicle_fusion;
@@ -635,12 +615,6 @@ void usr_mcps_data_ind(wpan_addr_spec_t *SrcAddrSpec,
 	memcpy(&adt->temperature, msdu + size, sizeof(adt->temperature));
 	size += sizeof(adt->temperature);
 	
-	memcpy(&adt->probability, msdu + size, sizeof(adt->probability));
-	size += sizeof(adt->probability);
-	
-	memcpy(&adt->rand, msdu + size, sizeof(adt->rand));
-	size += sizeof(adt->rand);
-	
 	memcpy(&adt->bufferlength, msdu + size, sizeof(adt->bufferlength));
 	size += sizeof(adt->bufferlength);
 
@@ -685,26 +659,11 @@ static void serialize_beacon_payload(void){
 	memcpy(beacon_payload, &cicle_fusion, sizeof(cicle_fusion));
 	uint8_t	size = sizeof(cicle_fusion);
 	
-	memcpy(beacon_payload + size, &target_fusion, sizeof(target_fusion));
-	size += sizeof(target_fusion);
-	
-	memcpy(beacon_payload + size, &actual_fusion, sizeof(actual_fusion));
-	size += sizeof(actual_fusion);
-	
-	memcpy(beacon_payload + size, &media_fusion, sizeof(media_fusion));
-	size += sizeof(media_fusion);
-	
 	memcpy(beacon_payload + size, &no_of_assoc_devices, sizeof(no_of_assoc_devices));
 	size += sizeof(no_of_assoc_devices);
 	
-	memcpy(beacon_payload + size, &target_nodes, sizeof(target_nodes));
-	size += sizeof(target_nodes);
-	
 	memcpy(beacon_payload + size, &frames_received, sizeof(frames_received));
 	size += sizeof(frames_received);
-	
-	memcpy(beacon_payload + size, &media_nodes, sizeof(media_nodes));
-	size += sizeof(media_nodes);
 
 	wpan_mlme_set_req(macBeaconPayload, &beacon_payload);
 }
