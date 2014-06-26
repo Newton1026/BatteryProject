@@ -25,10 +25,11 @@
 
 	% ############################################################################################
 	% Setting the initial KiBaM Parameters (all nodes with the same values).
-	y0 = 7200;				% Initial charge in the battery (Available + Bound Charge Wells) (in As).
+	y0 = 7200;				% Initial charge in the battery (Available+Bound Charge Wells), in As.
 	c = 0.625;				% The constant that defines the fraction in Available Charge Well.
 	k = 0.00001;			% in min^(-1).
-	acwMinLevel = 0;		% This value defines when the battery will stop to work (acw -> Available Charge Well).
+	acwMinLevel = 0;		% This value defines when the battery will stop to work ...
+							% ... (acw -> Available Charge Well).
 
 	% ############################################################################################
 	% Setting the nodes in the simulation and their fields.
@@ -37,10 +38,11 @@
 		n(z).id = z;		% Node Id.
 		n(z).t0 = 0.0;		% Initial Time (in seconds).
 		n(z).y0 = y0;		% Initial Battery Capacity.
-		n(z).i0 = (c)*y0;	% Initial Capacity at Available Well.
-		n(z).j0 = (1-c)*y0;	% Initial Capacity at Bound Well.
-		n(z).i = 0.0;		% Actual Capacity at Available Well.
-		n(z).j = 0.0;		% Actual Capacity at Bound Well.
+		n(z).i0 = (c)*y0;	% Initial Capacity at Available Well. Constant value.
+		n(z).j0 = (1-c)*y0;	% Initial Capacity at Bound Well. Constant value.
+		n(z).i = n(z).i0;	% Actual Capacity at Available Well.
+		n(z).j = n(z).j0;	% Actual Capacity at Bound Well.
+		n(z).soc = 100.0;	% Initial State of Charge (SoC).
 		n(z).fid = 0;		% Node File Descriptor.
 	endfor
 	
@@ -68,12 +70,13 @@
 	
 	% ############################################################################################
 	% Defining Charges and its times.
-	A = [0.040, t_opr];		% [current, time_of_operation].
-	B = [0.020, t_opr];		% [current, time_of_operation].
-	C = [0.005, t_slp];		% [current, time_of_sleep].
+	A = [0.040, t_opr];		% [current, time_of_operation]. Relative to a Tx Task.
+	B = [0.020, t_opr];		% [current, time_of_operation]. Relative to a Rx Task.
+	C = [0.005, t_slp];		% [current, time_of_sleep]. Relative to Sleep Mode.
 	
-	task_i = [A(1), B(1), C(1)];
-	task_t = [A(2), B(2), C(2)];
+	% Defining the task's array. One for charge and other for time.
+	task_i = [A(1), C(1)];	% [A(1), B(1), C(1)];
+	task_t = [A(2), C(2)];	% [A(2), B(2), C(2)];
 	
 	printf("\n	Charges: ");
 	for y = 1:length(task_i)
@@ -83,40 +86,43 @@
 	
 	% ############################################################################################
 	% Main loop (Execute until the battery reaches 'acwMinLevel').
-	while (n(z).i0 > acwMinLevel)
+	while (n(z).i > acwMinLevel)
 		for z = 1:nodes
 			
-			% for y = 1:length(task_i)
-				% [n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(y), task_t(y), n(z).fid);
-			% endfor
+			for y = 1:length(task_i)
+				[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(y), task_t(y), n(z).fid);
+			endfor
 			
 			% % Scenario #1.
 			% % Executing the charges.
 			% if((n(z).t0 > 50000 && n(z).t0 < 78800))
-			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(3), task_t(3), n(z).fid);
+			% 	[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(3), task_t(3), n(z).fid);
 			% else
-			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(1), task_t(1), n(z).fid);
+			% 	[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(1), task_t(1), n(z).fid);
 			% endif
 			
 			% % Scenario #2.
 			% for y = 1:length(task_i)
-			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(y), task_t(y), n(z).fid);
+			% 	[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(y), task_t(y), n(z).fid);
 			% endfor
 			
 			% % Scenario #3.
 			% for y = 1:length(task_i)
-			% 	[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(y), task_t(y), n(z).fid);
+			% 	[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(y), task_t(y), n(z).fid);
 			% endfor
 			
 			% Scenario #4.
-			[n(z).y0, n(z).i0, n(z).j0, n(z).t0] = kibam (c, k, n(z).y0, n(z).i0, n(z).j0, n(z).t0, task_i(1), task_t(1), n(z).fid);
+			% [n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(1), task_t(1), n(z).fid);
 			% for x = 1:nodes
 			% 	if (x != z)
 			% 		[n(x).y0, n(x).i0, n(x).j0, n(x).t0] = kibam (c, k, n(x).y0, n(x).i0, n(x).j0, n(x).t0, task_i(3), task_t(3), n(x).fid);
 			% 	endif
 			% endfor
 			
-			fprintf(n(z).fid, "%f %f\n", n(z).t0/60, n(z).i0);
+			% Updating the SoC value.
+			n(z).soc = 100.0 * (n(z).i / n(z).i0);
+			
+			fprintf(n(z).fid, "%f %f %f\n", n(z).t0/60, n(z).i, n(z).soc);
 			
 		endfor
 	endwhile
