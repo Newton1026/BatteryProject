@@ -63,7 +63,7 @@
 	% ############################################################################################
 	% Duty Cycle specifications.
 	Bi = [0.01536, 0.03072, 0.06144, 0.12288, 0.24576, 0.49152, 0.98304, 1.96608, 3.93216, 7.86432, 15.72864, 31.45728, 62.91456, 125.82912, 251.65824];
-	t_Bi = Bi(13);			% Beacon Interval (in seconds). Choose one of the fifteen indexes of 'Bi'.
+	t_Bi = Bi(13);			% Beacon Interval (in seconds). Choose one of the 15 indexes of 'Bi'.
 	t_opr = t_Bi * (1/4);	% Time in operation (in seconds).
 	t_slp = t_Bi * (3/4);	% Time in Sleep Mode (in seconds).
 	printf("\n	Beacon Interval: %f", t_Bi);
@@ -91,6 +91,11 @@
 			
 			for y = 1:length(task_i)
 				[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(y), task_t(y), n(z).fid);
+				
+				% Updating the SoC value.
+				n(z).soc = 100.0 * (n(z).i / n(z).i0);
+			
+				fprintf(n(z).fid, "%f %f %f\n", n(z).t0/60, n(z).i, n(z).soc);
 			endfor
 			
 			% % Scenario #1.
@@ -119,11 +124,6 @@
 			% 	endif
 			% endfor
 			
-			% Updating the SoC value.
-			n(z).soc = 100.0 * (n(z).i / n(z).i0);
-			
-			fprintf(n(z).fid, "%f %f %f\n", n(z).t0/60, n(z).i, n(z).soc);
-			
 		endfor
 	endwhile
 	
@@ -147,7 +147,7 @@
 	endfor
 	
 	grid on;
-	axis([0 4500 0 4500], "manual");
+	axis([0 5000 0 5000], "manual");
 	
 	title ("Descarga no tubo Carga Disponível");
 	hx = get (gca, 'title');
