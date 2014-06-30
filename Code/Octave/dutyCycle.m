@@ -75,8 +75,8 @@
 	C = [0.005, t_slp];		% [current, time_of_sleep]. Relative to Sleep Mode.
 	
 	% Defining the task's array. One for charge and other for time.
-	task_i = [A(1), C(1)];	% [A(1), B(1), C(1)];
-	task_t = [A(2), C(2)];	% [A(2), B(2), C(2)];
+	task_i = [A(1), B(1), C(1)]; % [A(1), B(1), C(1)];
+	task_t = [A(2), B(2), C(2)]; % [A(2), B(2), C(2)];
 	
 	printf("\n	Charges: ");
 	for y = 1:length(task_i)
@@ -91,20 +91,26 @@
 			
 			for y = 1:length(task_i)
 				[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(y), task_t(y), n(z).fid);
-				
+
 				% Updating the SoC value.
 				n(z).soc = 100.0 * (n(z).i / n(z).i0);
-			
+
 				fprintf(n(z).fid, "%f %f %f\n", n(z).t0/60, n(z).i, n(z).soc);
 			endfor
 			
 			% % Scenario #1.
 			% % Executing the charges.
-			% if((n(z).t0 > 50000 && n(z).t0 < 78800))
+			% if((n(z).t0 > 165000 && n(z).t0 < 193800))
 			% 	[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(3), task_t(3), n(z).fid);
 			% else
 			% 	[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(1), task_t(1), n(z).fid);
 			% endif
+			%
+			% % Updating the SoC value.
+			% n(z).soc = 100.0 * (n(z).i / n(z).i0);
+			%
+			% fprintf(n(z).fid, "%f %f %f\n", n(z).t0/60, n(z).i, n(z).soc);
+			
 			
 			% % Scenario #2.
 			% for y = 1:length(task_i)
