@@ -1,7 +1,7 @@
 	% Defining variables.
-	B = 0.11825;						% Original Value: 0.273;
-	I = 0.04; 		% A
-	t = 0.00;		% min
+	B = 0.11825;					% Original Value: 0.273;
+	I = 0.04; 		        % A
+	t = 0.00;		          % min
 	sum = 0.0;
 	sigma_diffM = 0.0;
 	
