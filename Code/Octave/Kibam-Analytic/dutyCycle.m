@@ -25,10 +25,10 @@
 
 	% ############################################################################################
 	% Setting the initial KiBaM Parameters (all nodes with the same values).
-	y0 = 3600;				% Initial charge in the battery (Available+Bound Charge Wells), in As.
+	y0 = 1800;				% Initial charge in the battery (Available+Bound Charge Wells), in As.
 	c = 0.625;				% The constant that defines the fraction in Available Charge Well.
-	k = 0.005; % 0.00001	% in min^(-1).
-	acwMinLevel = 0;		% This value defines when the battery will stop to work ...
+	k = 0.00001;			% in min^(-1).
+	acwMinLevel = 5;		% This value defines when the battery will stop to work ...
 							% ... (acw -> Available Charge Well).
 
 	% ############################################################################################
@@ -88,17 +88,25 @@
 	
 	t_opr = Sd;			% Time in operation (in seconds).
 	t_slp = Bi - Sd;	% Time in Sleep Mode (in seconds).
-	printf("\n	Beacon Interval: %f | Superframe Duration: %f", Bi, Sd);
+	% printf("\n	Beacon Interval: %f | Superframe Duration: %f", Bi, Sd);
 	
 	% ############################################################################################
 	% Defining Charges and its times.
-	A = [0.0400, t_opr];	% [current, time_of_operation]. Relative to a Tx Task.
-	B = [0.0200, t_opr];	% [current, time_of_operation]. Relative to a Rx Task.
-	C = [0.0005, t_slp];	% [current, time_of_sleep]. Relative to Sleep Mode.
+	A = [0.040, 10.00];	% [current, time_of_operation]. Relative to a Tx Task.
+	B = [0.020, 2.00];	% [current, time_of_operation]. Relative to a Rx Task.
+	C = [0.0005, 10.00];	% [current, time_of_sleep]. Relative to Sleep Mode.
 	
-	% Defining the task's array. One for charge and other for time.
-	task_i = [A(1)];	% [A(1), B(1), C(1)];
-	task_t = [A(2)];	% [A(2), B(2), C(2)];
+	% Defining the tasks array. One for charge and other for time.
+	% task_i = [A(1), C(1)];	% [A(1), B(1), C(1)];
+	% task_t = [A(2), C(2)];	% [A(2), B(2), C(2)];
+	
+	% Special run.
+	task_i_array1 = [A(1), A(1), C(1), C(1), C(1), C(1), C(1), C(1), C(1), C(1)];
+	task_t_array1 = [A(2), A(2), C(2), C(2), C(2), C(2), C(2), C(2), C(2), C(2)];
+	
+	task_i_array2 = [A(1), C(1), C(1), C(1), C(1), A(1), C(1), C(1), C(1), C(1)];
+	task_t_array2 = [A(2), C(2), C(2), C(2), C(2), A(2), C(2), C(2), C(2), C(2)];
+	
 	
 	printf("\n	Charges: ");
 	for y = 1:length(task_i)
@@ -111,14 +119,41 @@
 	while (n(z).i > acwMinLevel)
 		for z = 1:nodes
 
-			for y = 1:length(task_i)
-				[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(y), task_t(y), n(z).fid);
+			% for y = 1:length(task_i)
+			% 	[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i(y), task_t(y), n(z).fid);
+			%
+			% 	% Updating the SoC value.
+			% 	n(z).soc = 100.0 * (n(z).i / n(z).i0);
+			%
+			% 	fprintf(n(z).fid, "%f %f %f %f\n", n(z).t0/60, n(z).i, n(z).soc, task_i(y));
+			% endfor
+			
+			
+			% Special Run.
+			choice = 1;
+			color = "b";
+			if(choice == 1)
+				hold off;
+				for y = 1:length(task_i_array1)
+					[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i_array1(y), task_t_array1(y), n(z).fid);
 
-				% Updating the SoC value.
-				n(z).soc = 100.0 * (n(z).i / n(z).i0);
+					% Updating the SoC value.
+					n(z).soc = 100.0 * (n(z).i / n(z).i0);
 
-				fprintf(n(z).fid, "%f %f %f\n", n(z).t0/60, n(z).i, n(z).soc);
-			endfor
+					fprintf(n(z).fid, "%f %f %f %f\n", n(z).t0/60, n(z).i, n(z).soc, task_i_array1(y));
+				endfor
+			else
+				color = "m";
+				for y = 1:length(task_i_array2)
+					[n(z).y0, n(z).i, n(z).j, n(z).t0] = kibam (c, k, n(z).y0, n(z).i, n(z).j, n(z).t0, task_i_array2(y), task_t_array2(y), n(z).fid);
+
+					% Updating the SoC value.
+					n(z).soc = 100.0 * (n(z).i / n(z).i0);
+
+					fprintf(n(z).fid, "%f %f %f %f\n", n(z).t0/60, n(z).i, n(z).soc, task_i_array2(y));
+				endfor
+			endif
+
 
 			% % Scenario #1.
 			% % Executing the charges.
@@ -177,12 +212,12 @@
 
 	% ############################################################################################
 	% Plotting information from files.
-	hold off;
+	% hold off;
 	
 	for z = 1:nodes
 		a = load([int2str(n(z).id) ".txt"]);
 		if (z == 1)
-			plot(a(:,1), a(:,2), "b", 'linestyle', "-", 'linewidth', 0.4);
+			plot(a(:,1), a(:,2), color, 'linestyle', "-", 'linewidth', 0.4);
 		else
 			plot(a(:,1), a(:,2), "g", 'linestyle', "-", 'linewidth', 0.4);
 		endif
@@ -190,9 +225,9 @@
 	endfor
 	
 	grid on;
-	axis([0 2500 0 2500], "manual");
+	axis([0 7000 0 2500], "manual");
 	
-	title ("Descarga no tubo Carga Disponível");
+	title ("Descarga no tanque Carga Disponivel");
 	hx = get (gca, 'title');
 	set (hx, 'color', [1 0 0], 'fontsize', 16, 'fontname', 'Helvetica'); 
 	
@@ -220,4 +255,5 @@
 	for z = 1:nodes
 		printf("	%d	%f\n", n(z).id, n(z).soc);
 	endfor
+	printf("\n");
 	% ############################################################################################

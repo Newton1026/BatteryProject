@@ -1,21 +1,21 @@
 % Discovering the simulation time. Getting the time at the beggining of the simulation.
-time_before = time();	% in seconds.
+time_before = time();   % in seconds.
 
 % ############################################################################################
 % Setting the initial Diffusion Model parameters (all nodes with the same values).
-batCapMax = 60;		% in Ampere.min (A.min); Ex.: 60 Amin = 1000 mAh;
-sigma_diffM = 0.0;	% Apparent Charge Lost initial value;
-beta_diffM = 0.11825;	% Model constant (Original Value: 0.273);
+batCapMax = 60;         % in Ampere.min (A.min); Ex.: 60 Amin = 1000 mAh;
+sigma_diffM = 0.0;      % Apparent Charge Lost initial value;
+beta_diffM = 0.11825;   % Model constant (Original Value: 0.273);
 
 
 % ############################################################################################
 % Setting the nodes in the simulation and their fields.
 nodes = 1;
 for z = 1:nodes
-	n(z).id = z;		% Node Id.
-	n(z).t0 = 0.0;		% Initial Time (in minutes).
-	n(z).y0 = batCapMax;% Actual Battery Capacity.
-	n(z).fid = 0;		% Node File Descriptor.
+	n(z).id = z;          % Node Id.
+	n(z).t0 = 0.0;        % Initial Time (in minutes).
+	n(z).y0 = batCapMax;  % Actual Battery Capacity.
+	n(z).fid = 0;         % Node File Descriptor.
 endfor
 
 % ############################################################################################
@@ -34,7 +34,7 @@ endfor
 
 % ############################################################################################
 % Duty Cycle specifications.
-aBaseSuperframeDuration = 0.01536;			% in seconds.
+aBaseSuperframeDuration = 0.01536;          % in seconds.
 Bo = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];	% Beacon Order.
 So = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];	% Superframe Order.
 
@@ -58,19 +58,19 @@ So = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14];	% Superframe Order.
 Bi = aBaseSuperframeDuration * 2^(Bo(15));
 Sd = aBaseSuperframeDuration * 2^(So(10));
 
-t_opr = Sd;			% Time in operation (in seconds).
-t_slp = Bi - Sd;	% Time in Sleep Mode (in seconds).
+t_opr = Sd;			        % Time in operation (in seconds).
+t_slp = Bi - Sd;        % Time in Sleep Mode (in seconds).
 printf("\n	Beacon Interval: %f | Superframe Duration: %f", Bi, Sd);
 
 % ############################################################################################
 % Defining Charges and its times.
-A = [0.0400, 10];	% [current, time_of_operation (min)]. Relative to a Tx Task.
+A = [0.0400, 10];	      % [current, time_of_operation (min)]. Relative to a Tx Task.
 B = [0.0200, t_opr/60];	% [current, time_of_operation (min)]. Relative to a Rx Task.
-C = [0.0005, 5];	% [current, time_of_sleep (min)]. Relative to Sleep Mode.
+C = [0.0005, 5];	      % [current, time_of_sleep (min)]. Relative to Sleep Mode.
 
 % Defining the task's array. One for charge and other for time.
-task_i = [A(1)];	% [A(1), B(1), C(1)];
-task_t = [A(2)];	% [A(2), B(2), C(2)];
+task_i = [A(1)];	      % [A(1), B(1), C(1)];
+task_t = [A(2)];	      % [A(2), B(2), C(2)];
 
 %
 % Adicionar outra carga e corrigir problema de reposição sigma_diffM...
