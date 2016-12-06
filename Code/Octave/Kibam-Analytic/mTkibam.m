@@ -41,19 +41,19 @@ function elt = mTkibam (task,bCap,temp)
     % vX: coefficients of part X.
     % CF: Correction Factor returned by the function.
     if(temp >= -5 && temp < 10)
-        v1 = [-0.000000284172506                   0   0.000956830346212   0.998001136690024]; % 30.242 mA
+        v1 = [-0.000000511703942                   0   0.001007597134289   0.998002046815767]; % 30.242 mA
         CF = @(T) v1(1)*(T+5).^3 + v1(2)*(T+5).^2 + v1(3)*(T+5).^1 + v1(4);
     end
     if(temp >= 10 && temp < 25)
-        v2 = [ 0.000001088408541  -0.000012787762765   0.000765013904733   1.011394509675811]; % 30.242 mA
+        v2 = [ 0.000002237539379  -0.000023026677378   0.000662196973612   1.011389003026715]; % 30.242 mA
         CF = @(T) v2(1)*(T-10).^3 + v2(2)*(T-10).^2 + v2(3)*(T-10).^1 + v2(4);
     end
     if(temp >= 25 && temp < 32.5)
-        v3 = [-0.000015374204459   0.000036190621600   0.001116056787253   1.023665850452001]; % 30.242 mA
+        v3 = [-0.000020925117234   0.000077662594698   0.001481735733400   1.023692650626454]; % 30.242 mA
         CF = @(T) v3(1)*(T-25).^3 + v3(2)*(T-25).^2 + v3(3)*(T-25).^1 + v3(4);
     end
     if(temp >= 32.5 && temp <= 40)
-        v4 = [0.000013765732388  -0.000309728978722  -0.000935480891163   1.027586006315358]; % 30.242 mA
+        v4 = [ 0.000017473446358  -0.000393152543066  -0.000884438879363   1.030346405745630]; % 30.242 mA
         CF = @(T) v4(1)*(T-32.5).^3 + v4(2)*(T-32.5).^2 + v4(3)*(T-32.5).^1 + v4(4);
     end
     
@@ -152,8 +152,8 @@ end
 %     Kb = 0.0375;         % Polarisation Resistence (Ohm).
 %     A = 0.4831;          % Exponential Zone Amplitude (V).
 %     B = 18.00;           % Exponential Zone Time Constant Inverse (1/Ah).
-%     prExp = 0.280;      % Exp(t), used for Ni-MH battery type.
-%     tau_b = 0.954;        % Adjusts the simulation time step.
+%     prExp = 0.280;       % Exp(t), used for Ni-MH battery type.
+%     tau_b = 0.954;       % Adjusts the simulation time step.
 
 %     % 10 oC:
 %     Eo = 2.585;          % Battery nominal voltage value (in V).
@@ -161,8 +161,8 @@ end
 %     Kb = 0.0286;         % Polarisation Resistence (Ohm).
 %     A = 0.4831;          % Exponential Zone Amplitude (V).
 %     B = 15.01;           % Exponential Zone Time Constant Inverse (1/Ah).
-%     prExp = 0.262;      % Exp(t), used for Ni-MH battery type.
-%     tau_b = 0.9630;       % Adjusts the simulation time step.
+%     prExp = 0.262;       % Exp(t), used for Ni-MH battery type.
+%     tau_b = 0.9630;      % Adjusts the simulation time step.
     
 %     % 25 oC:   
 %     Eo = 2.60;           % Battery nominal voltage value (in V).
@@ -170,8 +170,8 @@ end
 %     Kb = 0.0225;         % Polarisation Resistence (Ohm).
 %     A= 0.4831;           % Exponential Zone Amplitude (V).
 %     B = 12.750;          % Exponential Zone Time Constant Inverse (1/Ah).
-%     prExp = 0.247;      % Exp(t), used for Ni-MH battery type.
-%     tau_b = 0.9706;       % Adjusts the simulation time step.
+%     prExp = 0.247;       % Exp(t), used for Ni-MH battery type.
+%     tau_b = 0.9706;      % Adjusts the simulation time step.
 
 %     % 32 oC:   
 %     Eo = 2.606;          % Battery nominal voltage value (in V).
@@ -179,8 +179,8 @@ end
 %     Kb = 0.0201;         % Polarisation Resistence (Ohm).
 %     A = 0.4831;          % Exponential Zone Amplitude (V).
 %     B = 11.82;           % Exponential Zone Time Constant Inverse (1/Ah).
-%     prExp = 0.241;      % Exp(t), used for Ni-MH battery type.
-%     tau_B = 0.9742;       % Adjusts the simulation time step.
+%     prExp = 0.241;       % Exp(t), used for Ni-MH battery type.
+%     tau_B = 0.9742;      % Adjusts the simulation time step.
     
 %     % 40 oC:   
 %     Eo = 2.612;          % Battery nominal voltage value (in V).
@@ -188,5 +188,5 @@ end
 %     Kb = 0.0180;         % Polarisation Resistence (Ohm).
 %     A = 0.4831;          % Exponential Zone Amplitude (V).
 %     B = 11.00;           % Exponential Zone Time Constant Inverse (1/Ah).
-%     prExp = 0.235;      % Exp(t), used for Ni-MH battery type.
-%     tau_b = 0.9776;       % Adjusts the simulation time step.
+%     prExp = 0.235;       % Exp(t), used for Ni-MH battery type.
+%     tau_b = 0.9776;      % Adjusts the simulation time step.
