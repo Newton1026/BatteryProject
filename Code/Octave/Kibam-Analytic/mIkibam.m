@@ -24,21 +24,33 @@ function mIkibam (tempArray,taskArray)
     N = taskArray;
 
     [r, ~] = size(N);
-    final = zeros(1,r);
 
     %% Main Function Call
-    for j=1:length(tempArray)
+    fprintf('  --------------------\n');
+    if(ischar(tempArray) == 0)
+        final = zeros(1,r);
+        for j=1:length(tempArray)
+            fprintf('   T = %.1f\n',tempArray(j));
+            fprintf('  --------------------\n');
+            for i = 1:r
+                %%final(i) = mInterface(N{i},Y0);             % KiBaM.
+                final(i) = mTkibam(N{i},Y0,tempArray(j));   % T-KiBaM.
+                disp(['   Time (s): ' num2str(final(i))]);
+                disp(['   Time (h): ' num2str(secondToHour(final(i)))]);
+                fprintf('  --------------------\n');
+            end
+            fprintf('\n');
+        end
+    else
+        fprintf('   File input\n');
         fprintf('  --------------------\n');
-        fprintf('   T = %.1f\n',tempArray(j));
-        fprintf('  --------------------\n');
+        final = zeros(1,1);
         for i = 1:r
-            %%final(i) = mInterface(N{i},Y0);             % KiBaM.
-            final(i) = mTkibam(N{i},Y0,tempArray(j));   % T-KiBaM.
-            disp(['   Time (s): ' num2str(final(i))]);
-            disp(['   Time (h): ' num2str(secondToHour(final(i)))]);
+            final = mDTkibam(N{i},Y0,tempArray);   % D-T-KiBaM.
+            disp(['   Time (s): ' num2str(final)]);
+            disp(['   Time (h): ' num2str(secondToHour(final))]);
             fprintf('  --------------------\n');
         end
-        fprintf('\n');
     end
 end
 

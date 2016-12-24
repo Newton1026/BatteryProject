@@ -14,9 +14,9 @@ function elt = mTkibam (task,bCap,temp)
     TSUP = 40;               % Lower bound Temperature (degree Celsius).
 
     %% Checking Temperature Range.
-    if(temp < TINF && temp > TSUP)
+    if(temp < TINF || temp > TSUP)
         % If the temperature is out of range, print error message.
-        fprintf('   Temperature out of range!\n');
+        fprintf('\n\n   Temperature out of range!\n');
         fprintf('   Please use %d %cC <= T <= %d %cC\n',TINF, char(176), TSUP, char(176));
         error('Incorrect temperature value.');
     end
